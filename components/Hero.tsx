@@ -10,8 +10,7 @@ export default function Hero() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = gsap.context(() => {
       gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .from('[data-nav]', { opacity: 0, y: -20, duration: 0.8 })
-        .from('[data-hero-line]', { yPercent: 110, duration: 1.1, stagger: 0.12 }, '-=.4')
+        .from('[data-hero-line]', { yPercent: 110, duration: 1.1, stagger: 0.12 })
         .from('[data-hero-fade]', { opacity: 0, y: 16, duration: 0.9, stagger: 0.12 }, '-=.7')
         .to(motion.intro, { v: 1, duration: 1.4, ease: 'power2.inOut', onUpdate: () => motion.update() }, '-=1.1');
     });
