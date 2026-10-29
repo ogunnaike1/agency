@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23181A1B'/%3E%3Cpath d='M4 12A8 8 0 0 1 12 4v8zM12 12h8a8 8 0 0 1-8 8z' fill='%23fff'/%3E%3C/svg%3E">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<style>@font-face{font-family:"PP Neue Montreal";font-weight:400;font-style:normal;font-display:swap;src:local("PP Neue Montreal"),local("PPNeueMontreal-Book"),url("fonts/PPNeueMontreal-Book.woff2") format("woff2")}@font-face{font-family:"PP Neue Montreal";font-weight:500;font-style:normal;font-display:swap;src:local("PP Neue Montreal Medium"),local("PPNeueMontreal-Medium"),url("fonts/PPNeueMontreal-Medium.woff2") format("woff2")}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#181A1B;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#181A1B}a:hover{color:#62676E}::selection{background:#181A1B;color:#fff}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}</style>
+</helmet>
+<div style="font-family:'PP Neue Montreal',sans-serif;font-style:normal;color:#181A1B;position:relative;overflow-x:clip">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="liquid" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB"><feTurbulence id="liqt" type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="4" result="n"/><feDisplacementMap id="liqd" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden"><img data-wm src="logo-mark.png" alt="" style="position:absolute;left:50%;top:50%;width:min(112vw,150vh);height:auto;max-width:none;opacity:.055;transform:translate(-46%,-48%);filter:url(#liquid);will-change:transform"></div>
+<!-- persistent stage: four plates that recompose per chapter -->
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden">
+  <div data-frame="0" style="position:absolute;left:0;top:0;border:1px solid #D9DDE1;will-change:transform;overflow:hidden;background:linear-gradient(#181A1B,#181A1B) 66% 26%/18% 8% no-repeat,linear-gradient(158deg,#EEEFF1 0 56%,#34373B 56%)"><i data-ov style="position:absolute;inset:0;background:#181A1B;opacity:0"></i><i data-vl style="position:absolute;inset:0;background:#fff;opacity:0"></i></div>
+  <div data-frame="1" style="position:absolute;left:0;top:0;border:1px solid #D9DDE1;will-change:transform;overflow:hidden;background:linear-gradient(100deg,#B9BDC2 0%,#F4F5F6 28%,#9DA2A8 52%,#E3E5E8 76%,#8C9298 100%)"><i data-ov style="position:absolute;inset:0;background:#181A1B;opacity:0"></i><i data-vl style="position:absolute;inset:0;background:#fff;opacity:0"></i></div>
+  <div data-frame="2" style="position:absolute;left:0;top:0;border:1px solid #D9DDE1;will-change:transform;overflow:hidden;background:radial-gradient(circle at 38% 34%,#fff 0,#D5D8DC 28%,#6A6F76 70%,#2B2E31 100%) #E6E8EA"><i data-ov style="position:absolute;inset:0;background:#181A1B;opacity:0"></i><i data-vl style="position:absolute;inset:0;background:#fff;opacity:0"></i></div>
+  <div data-frame="3" style="position:absolute;left:0;top:0;border:1px solid #D9DDE1;will-change:transform;overflow:hidden;background:linear-gradient(#181A1B,#181A1B) 0 0/100% 14% no-repeat,linear-gradient(#D9DDE1 1px,transparent 1px) 0 0/100% 22px,linear-gradient(90deg,#D9DDE1 1px,transparent 1px) 0 0/22px 100%,#F5F5F5"><i data-ov style="position:absolute;inset:0;background:#181A1B;opacity:0"></i><i data-vl style="position:absolute;inset:0;background:#fff;opacity:0"></i></div>
+</div>
+
+<header data-nav style="position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1)">
+  <div style="padding:clamp(12px,1.6vw,22px) clamp(16px,2.4vw,40px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px">
+    <a href="#hero" aria-label="Agency Name home" style="pointer-events:auto;justify-self:start;display:flex;align-items:center;gap:12px;text-decoration:none;color:#181A1B">
+      <img src="logo-mark.png" alt="" width="42" style="display:block;height:auto">
+      <span style="font:500 15px/1 'PP Neue Montreal',sans-serif;letter-spacing:.22em;text-transform:uppercase">Agency Name</span>
+    </a>
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="pointer-events:auto;display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(217,221,225,.9);box-shadow:0 10px 30px -18px rgba(24,26,27,.35),inset 0 1px 0 rgba(255,255,255,.9)">
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="5"><a href="{{ l.href }}" style="font:500 13px/1 'PP Neue Montreal',sans-serif;text-decoration:none;color:{{ l.fg }};background:{{ l.bg }};padding:11px 18px;border-radius:999px;transition:background .3s,color .3s" style-hover="background:#181A1B;color:#fff">{{ l.label }}</a></sc-for>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}"><span></span></sc-if>
+    <div style="pointer-events:auto;justify-self:end;display:flex;align-items:center;gap:10px">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+        <a href="#contact" style="display:flex;align-items:center;gap:10px;font:500 13px/1 'PP Neue Montreal',sans-serif;text-decoration:none;color:#fff;background:#181A1B;padding:5px 5px 5px 20px;border-radius:999px;border:1px solid #181A1B;transition:background .3s,color .3s" style-hover="background:#fff;color:#181A1B">Start a project<span style="width:34px;height:34px;border-radius:50%;background:#fff;color:#181A1B;display:grid;place-items:center;font-size:15px">↗</span></a>
+      </sc-if>
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="height:44px;padding:0 20px;border-radius:999px;border:1px solid #D9DDE1;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;font:500 13px 'PP Neue Montreal',sans-serif;color:#181A1B">{{ menuLabel }}</button>
+      </sc-if>
+    </div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="pointer-events:auto;margin:0 16px;display:flex;flex-direction:column;padding:8px 20px 20px;background:rgba(255,255,255,.96);border:1px solid #D9DDE1;border-radius:24px">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="5"><a href="{{ l.href }}" onClick="{{ closeMenu }}" style="font:600 30px/1 'Clash Display',sans-serif;text-transform:uppercase;letter-spacing:-.02em;text-decoration:none;color:#181A1B;padding:16px 0;border-bottom:1px solid #D9DDE1">{{ l.label }}</a></sc-for>
+      <a href="#contact" onClick="{{ closeMenu }}" style="margin-top:20px;text-align:center;font-weight:500;text-decoration:none;color:#fff;background:#181A1B;padding:16px;border-radius:999px">Start a project</a>
+    </nav>
+  </sc-if>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="hero" data-screen-label="01 Hero" style="position:relative;padding:0 clamp(20px,3vw,48px) clamp(60px,8vw,120px);max-width:1760px;margin:0 auto">
+  <div style="position:relative;height:clamp(560px,min(57vw,84vh),1000px)">
+    <p data-hero-fade style="position:absolute;left:0;top:clamp(80px,7vw,110px);margin:0;font:500 11px/1.5 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E;max-width:220px">Software &amp; creative<br>technology studio</p>
+    <h1 style="position:absolute;inset:0;margin:0;font:600 clamp(44px,11.6vw,230px)/.86 'Clash Display',sans-serif;letter-spacing:-.045em;color:#fff;mix-blend-mode:difference;text-transform:uppercase;pointer-events:none">
+      <span style="position:absolute;left:-.03em;top:clamp(150px,14.5vw,240px);overflow:hidden;padding:.04em .04em .16em 0"><span data-hero-line style="display:block;white-space:nowrap">Engineering,</span></span>
+      <span style="position:absolute;left:0;top:44%;overflow:hidden;font-size:.4em;font-weight:500;letter-spacing:-.03em;padding-bottom:.06em"><span data-hero-line style="display:block;white-space:nowrap">design and</span></span>
+      <span style="position:absolute;right:-.02em;bottom:2%;overflow:hidden;padding:.04em .04em .16em 0"><span data-hero-line style="display:block;white-space:nowrap">intelligence.</span></span>
+    </h1>
+  </div>
+  <div data-hero-fade style="margin-top:clamp(24px,3vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px 56px;align-items:end;border-top:1px solid #181A1B;padding-top:28px">
+    <p style="margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.5;max-width:560px">One team for the product, the interface, the data behind it and the security around it. We build web and mobile software from first prototype to production.</p>
+    <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+      <p style="margin:0;font:500 11px/1.7 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E;max-width:380px">For startups, scale-ups and established teams building or modernising software.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#contact" style="font-size:15px;font-weight:500;text-decoration:none;color:#fff;background:#181A1B;padding:16px 26px;border:1px solid #181A1B;transition:background .25s,color .25s" style-hover="background:#fff;color:#181A1B">Start a project</a>
+        <a href="#capabilities" style="font-size:15px;font-weight:500;text-decoration:none;color:#181A1B;padding:16px 26px;border:1px solid #D9DDE1;transition:border-color .25s" style-hover="border-color:#181A1B">See capabilities ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" data-screen-label="02 Capabilities" style="position:relative;padding:clamp(60px,8vw,140px) clamp(20px,3vw,48px);max-width:1760px;margin:0 auto">
+  <p style="margin:0 0 28px;display:flex;align-items:center;gap:12px;font:500 13px/1 'PP Neue Montreal',sans-serif;letter-spacing:.06em;text-transform:uppercase"><span style="width:9px;height:9px;border-radius:50%;background:#181A1B;display:block"></span><span>Capabilities</span></p>
+  <div style="max-width:{{ colW }}">
+    <h2 style="margin:0;font:600 clamp(44px,8.6vw,150px)/.88 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase"><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">Four pillars,</span></span><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">one build.</span></span></h2>
+    <p style="margin:28px 0 0;font-size:clamp(16px,1.3vw,19px);line-height:1.6;color:#62676E;max-width:520px">Most products need more than code. These four areas are organised so they can be bought together, which is how they work best, or separately.</p>
+  </div>
+  <div style="margin-top:clamp(40px,5vw,80px)">
+    <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
+      <article data-pillar style="padding:clamp(40px,5vw,80px) 0;border-top:1px solid #181A1B;max-width:{{ colW }};min-height:62vh">
+        <h3 style="margin:0 0 clamp(24px,3vw,40px);font:600 clamp(36px,5.4vw,96px)/.9 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase">{{ p.title }}</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px">
+          <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="6">
+            <li style="display:flex;align-items:baseline;gap:14px;padding:16px 0;border-top:1px solid #D9DDE1;font-size:16px;line-height:1.35;color:{{ it.color }};transition:padding .3s" style-hover="padding-left:10px"><span style="width:6px;height:6px;background:#181A1B;flex:none;transform:translateY(-2px)"></span><span style="flex:1">{{ it.t }}</span><span style="font:500 10px/1 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#62676E">{{ it.tag }}</span></li>
+          </sc-for>
+        </ul>
+      </article>
+    </sc-for>
+  </div>
+  <div style="margin-top:clamp(24px,3vw,48px);border-top:1px solid #181A1B;padding-top:32px;max-width:{{ colW }}">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:baseline">
+      <h3 style="margin:0;font:500 clamp(26px,3vw,44px)/1 'PP Neue Montreal',sans-serif;letter-spacing:-.03em">How the pillars combine</h3>
+      <span style="font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;color:#62676E;text-transform:uppercase">● Lead &nbsp; ○ Support — indicative</span>
+    </div>
+    <div style="overflow-x:auto;margin-top:28px"><div style="min-width:560px">
+      <div style="display:grid;grid-template-columns:2fr repeat(4,1fr);padding:12px 0;font:500 11px/1.3 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#62676E"><span></span><span>Eng.</span><span>Exp.</span><span>Data</span><span>Sec.</span></div>
+      <sc-for list="{{ matrix }}" as="m" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:2fr repeat(4,1fr);padding:20px 0;border-top:1px solid #D9DDE1;align-items:center">
+          <span style="font:500 clamp(17px,1.6vw,22px)/1.1 'PP Neue Montreal',sans-serif">{{ m.name }}</span>
+          <sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="4"><span style="width:16px;height:16px;border-radius:50%;background:{{ c.bg }};border:1.5px solid {{ c.bd }};display:block"></span></sc-for>
+        </div>
+      </sc-for>
+    </div></div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" data-screen-label="03 Work" style="position:relative;padding:clamp(60px,8vw,140px) clamp(20px,3vw,48px);max-width:1760px;margin:0 auto">
+  <p style="margin:0 0 28px;display:flex;align-items:center;gap:12px;font:500 13px/1 'PP Neue Montreal',sans-serif;letter-spacing:.06em;text-transform:uppercase"><span style="width:9px;height:9px;border-radius:50%;background:#181A1B;display:block"></span><span>Work</span></p>
+  <h2 style="margin:0;font:600 clamp(44px,8.6vw,150px)/.88 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase"><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">Work and experiments</span></span></h2>
+  <div style="margin-top:clamp(24px,4vw,64px)">
+    <sc-for list="{{ projects }}" as="w" hint-placeholder-count="4">
+      <article data-wrow style="min-height:78vh;display:flex;align-items:center;padding:clamp(24px,4vw,56px) 0">
+        <div style="max-width:{{ colW }}">
+          <div style="display:flex;justify-content:space-between;gap:16px;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E;border-bottom:1px solid #D9DDE1;padding-bottom:14px;max-width:420px"><span>{{ w.cat }}</span></div>
+          <h3 style="margin:20px 0 14px;width:max-content;max-width:92vw;font:600 clamp(34px,6.6vw,116px)/.88 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase;color:#fff;mix-blend-mode:difference;position:relative">{{ w.title }}</h3>
+          <p style="margin:0;color:#62676E;line-height:1.55;font-size:16px;max-width:420px">{{ w.desc }}</p>
+          <span style="display:inline-block;margin-top:18px;font:500 10px/1 'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;border:1px solid #D9DDE1;background:rgba(255,255,255,.85);padding:7px 10px">{{ w.status }}</span>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" data-screen-label="04 Process" style="position:relative;padding:clamp(60px,8vw,140px) clamp(20px,3vw,48px);max-width:1760px;margin:0 auto">
+  <p style="margin:0 0 28px;display:flex;align-items:center;gap:12px;font:500 13px/1 'PP Neue Montreal',sans-serif;letter-spacing:.06em;text-transform:uppercase"><span style="width:9px;height:9px;border-radius:50%;background:#181A1B;display:block"></span><span>Process</span></p>
+  <h2 style="margin:0;font:600 clamp(44px,8.6vw,150px)/.88 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase"><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">How we work</span></span></h2>
+  <div id="pline" style="position:relative;margin-top:clamp(40px,5vw,80px);padding-left:clamp(28px,4vw,56px);max-width:{{ colW }}">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:1px;background:#D9DDE1"></div>
+    <div id="pfill" style="position:absolute;left:0;top:0;height:0;width:1px;background:#181A1B"></div>
+    <div id="pdot" style="position:absolute;left:-4px;top:0;width:9px;height:9px;background:#181A1B;transform:rotate(45deg);margin-top:-4px"></div>
+    <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+      <div data-pstage style="padding:clamp(28px,4vw,52px) 0;border-top:1px solid #D9DDE1;opacity:.35;min-height:30vh">
+        <h3 style="margin:0 0 16px;font:600 clamp(30px,4vw,64px)/.95 'Clash Display',sans-serif;letter-spacing:-.04em;text-transform:uppercase">{{ s.title }}</h3>
+        <p style="margin:0;line-height:1.55;font-size:16px;max-width:460px">{{ s.desc }}</p><p style="margin:14px 0 0;font:500 11px/1.5 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#62676E">Output — {{ s.out }}</p>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top:clamp(32px,4vw,56px);display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline;border-top:1px solid #181A1B;padding-top:24px;max-width:{{ colW }}">
+    <span style="font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Proposed agreements — to be confirmed</span>
+    <sc-for list="{{ agreements }}" as="a" hint-placeholder-count="4"><span style="font-size:15px">{{ a }}</span></sc-for>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section id="studio" data-screen-label="05 Studio" style="position:relative;padding:clamp(60px,8vw,140px) clamp(20px,3vw,48px);max-width:1760px;margin:0 auto;min-height:100vh">
+  <p style="margin:0 0 28px;display:flex;align-items:center;gap:12px;font:500 13px/1 'PP Neue Montreal',sans-serif;letter-spacing:.06em;text-transform:uppercase"><span style="width:9px;height:9px;border-radius:50%;background:#181A1B;display:block"></span><span>Studio approach</span></p>
+  <div style="max-width:{{ colW }}">
+    <h2 style="margin:0;font:600 clamp(32px,4.8vw,84px)/.95 'Clash Display',sans-serif;letter-spacing:-.04em;text-transform:uppercase"><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">Four disciplines in one team make better software than four vendors passing files.</span></span></h2>
+    <div style="margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 32px">
+      <sc-for list="{{ principles }}" as="r" hint-placeholder-count="3">
+        <div style="border-top:1px solid #181A1B;padding:20px 0 8px"><p style="margin:0;font:500 clamp(20px,1.8vw,28px)/1.15 'PP Neue Montreal',sans-serif;letter-spacing:-.02em">{{ r.t }}</p></div>
+      </sc-for>
+    </div>
+    <p style="margin:24px 0 0;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Principles proposed — to be confirmed</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" data-screen-label="06 Contact" style="position:relative;padding:clamp(80px,10vw,180px) clamp(20px,3vw,48px) clamp(60px,8vw,120px);max-width:1760px;margin:0 auto">
+  <p style="margin:0 0 28px;display:flex;align-items:center;gap:12px;font:500 13px/1 'PP Neue Montreal',sans-serif;letter-spacing:.06em;text-transform:uppercase"><span style="width:9px;height:9px;border-radius:50%;background:#181A1B;display:block"></span><span>Contact</span></p>
+  <div style="display:flex;flex-wrap:wrap;gap:48px clamp(32px,6vw,112px)">
+    <div style="flex:1 1 340px;max-width:640px">
+      <h2 style="margin:0;font:600 clamp(40px,6.4vw,112px)/.9 'Clash Display',sans-serif;letter-spacing:-.045em;text-transform:uppercase"><span style="display:block;overflow:hidden;padding-bottom:.08em"><span data-mask style="display:block">Tell us what you are building.</span></span></h2>
+      <p style="margin:28px 0 0;font-size:17px;line-height:1.6;color:#62676E;max-width:480px">Describe the product, the problem or the system you want to improve. Pick the areas involved if you know them; if not, we will work it out with you.</p>
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(2,clamp(32px,4vw,52px));gap:5px">
+        <div data-slot="c-0" style="aspect-ratio:1"></div><div data-slot="c-1" style="aspect-ratio:1"></div><div data-slot="c-2" style="aspect-ratio:1"></div><div data-slot="c-3" style="aspect-ratio:1"></div>
+      </div>
+    </div>
+    <form onSubmit="{{ noSubmit }}" style="flex:1 1 380px;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #D9DDE1;padding:clamp(24px,3vw,44px);box-shadow:0 30px 60px -40px rgba(24,26,27,.25);display:flex;flex-direction:column;gap:28px">
+      <label style="display:block;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Name<input value="{{ name }}" onInput="{{ setName }}" autocomplete="name" style="display:block;width:100%;margin-top:10px;border:0;border-bottom:1px solid #D9DDE1;background:transparent;padding:10px 0;font:400 18px 'PP Neue Montreal',sans-serif;color:#181A1B;outline:0;transition:border-color .25s" style-focus="border-bottom-color:#181A1B"></label>
+      <label style="display:block;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Email<input type="email" value="{{ email }}" onInput="{{ setEmail }}" autocomplete="email" style="display:block;width:100%;margin-top:10px;border:0;border-bottom:1px solid #D9DDE1;background:transparent;padding:10px 0;font:400 18px 'PP Neue Montreal',sans-serif;color:#181A1B;outline:0;transition:border-color .25s" style-focus="border-bottom-color:#181A1B"></label>
+      <fieldset style="border:0;padding:0;margin:0"><legend style="padding:0;margin-bottom:12px;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Areas involved</legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ areas }}" as="a" hint-placeholder-count="4"><button type="button" aria-pressed="{{ a.on }}" onClick="{{ a.toggle }}" style="cursor:pointer;min-height:44px;padding:0 16px;font:400 14px 'PP Neue Montreal',sans-serif;border:1px solid {{ a.bd }};background:{{ a.bg }};color:{{ a.fg }};transition:all .2s">{{ a.label }}</button></sc-for></div></fieldset>
+      <fieldset style="border:0;padding:0;margin:0"><legend style="padding:0;margin-bottom:12px;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Timeline</legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ times }}" as="a" hint-placeholder-count="5"><button type="button" aria-pressed="{{ a.on }}" onClick="{{ a.toggle }}" style="cursor:pointer;min-height:44px;padding:0 16px;font:400 14px 'PP Neue Montreal',sans-serif;border:1px solid {{ a.bd }};background:{{ a.bg }};color:{{ a.fg }};transition:all .2s">{{ a.label }}</button></sc-for></div></fieldset>
+      <label style="display:block;font:500 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#62676E">Project brief<textarea rows="4" value="{{ brief }}" onInput="{{ setBrief }}" style="display:block;width:100%;margin-top:10px;border:0;border-bottom:1px solid #D9DDE1;background:transparent;padding:10px 0;font:400 18px/1.5 'PP Neue Montreal',sans-serif;color:#181A1B;outline:0;resize:vertical;transition:border-color .25s" style-focus="border-bottom-color:#181A1B"></textarea></label>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between">
+        <a href="{{ mailto }}" style="font-size:15px;font-weight:500;text-decoration:none;color:#fff;background:#181A1B;padding:16px 28px;border:1px solid #181A1B;transition:background .25s,color .25s" style-hover="background:#fff;color:#181A1B">Compose email</a>
+        <span style="font-size:12px;color:#62676E">Opens your email app · to hello@agency.example (placeholder)</span>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer data-screen-label="07 Footer" style="position:relative;border-top:1px solid #D9DDE1;background:#fff">
+  <div style="max-width:1760px;margin:0 auto;padding:clamp(48px,6vw,96px) clamp(20px,3vw,48px) 32px">
+    <div style="display:flex;flex-wrap:wrap;gap:40px 80px;justify-content:space-between">
+      <div style="max-width:360px">
+        <div style="display:flex;align-items:center;gap:16px"><div style="display:grid;grid-template-columns:repeat(2,18px);gap:3px"><div data-slot="f-0" style="width:18px;height:18px"></div><div data-slot="f-1" style="width:18px;height:18px"></div><div data-slot="f-2" style="width:18px;height:18px"></div><div data-slot="f-3" style="width:18px;height:18px"></div></div><span style="font:500 18px/1 'PP Neue Montreal',sans-serif;letter-spacing:.24em;text-transform:uppercase">Agency Name</span></div>
+        <p style="margin:20px 0 0;color:#62676E;line-height:1.55;font-size:15px">A software and creative technology studio: engineering, design, data and security in one team.</p>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:6px"><sc-for list="{{ links }}" as="l" hint-placeholder-count="5"><a href="{{ l.href }}" style="font-size:16px;text-decoration:none;padding:6px 0">{{ l.label }}</a></sc-for></nav>
+      <a href="#hero" style="align-self:flex-end;font-size:14px;font-weight:500;text-decoration:none;border:1px solid #D9DDE1;padding:14px 22px" style-hover="border-color:#181A1B">Back to top ↑</a>
+    </div>
+    <div aria-hidden="true" style="margin-top:clamp(40px,6vw,96px);font:600 11.6vw/1.05 'Clash Display',sans-serif;letter-spacing:-.05em;text-transform:uppercase;white-space:nowrap;overflow:hidden;padding-bottom:.14em">Agency Name</div>
+    <div style="margin-top:clamp(24px,3vw,40px);padding-top:20px;border-top:1px solid #D9DDE1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:13px;color:#62676E"><span>Copyright © 2026 Agency Name.</span><span>hello@agency.example — placeholder</span></div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: -1, w: window.innerWidth, menu: false, name: '', email: '', brief: '', areas: [], time: '' };
+  componentDidMount() {
+    this.onResize = () => { this.setState({ w: window.innerWidth }); this.measure(); };
+    window.addEventListener('resize', this.onResize);
+    const go = () => {
+      if (!window.gsap) return setTimeout(go, 100);
+      gsap.registerPlugin(ScrollTrigger);
+      this.reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      this.intro = { v: this.reduce ? 1 : 0 };
+      this.measure();
+      ScrollTrigger.create({ start: 0, end: 'max', onUpdate: () => this.update() });
+      window.addEventListener('scroll', () => this.update(), { passive: true });
+      document.fonts && document.fonts.ready.then(() => { this.measure(); ScrollTrigger.refresh(); });
+      window.addEventListener('load', () => { this.measure(); ScrollTrigger.refresh(); });
+      if (!this.reduce) {
+        const initMasks = () => document.querySelectorAll('[data-mask]').forEach(el => {
+          const tr = { trigger: el.parentNode, start: 'top 92%', end: 'top 55%', scrub: true };
+          if (window.SplitText) { gsap.registerPlugin(SplitText); const sp = SplitText.create(el, { type: 'chars' }); gsap.fromTo(sp.chars, { yPercent: 115, rotate: 6 }, { yPercent: 0, rotate: 0, ease: 'none', stagger: .03, scrollTrigger: tr }); }
+          else gsap.fromTo(el, { yPercent: 105 }, { yPercent: 0, ease: 'none', scrollTrigger: tr });
+        });
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { initMasks(); this.measure(); ScrollTrigger.refresh(); });
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.from('[data-nav]', { opacity: 0, y: -20, duration: .8 })
+          .from('[data-hero-line]', { yPercent: 110, duration: 1.1, stagger: .12 }, '-=.4')
+          .from('[data-hero-fade]', { opacity: 0, y: 16, duration: .9, stagger: .12 }, '-=.7')
+          .to(this.intro, { v: 1, duration: 1.4, ease: 'power2.inOut', onUpdate: () => this.update() }, '-=1.1');
+      }
+      setTimeout(() => { this.measure(); ScrollTrigger.refresh(); }, 600);
+      setTimeout(() => { if (this.intro.v < 1) { gsap.killTweensOf(this.intro); this.intro.v = 1; gsap.set('[data-nav],[data-hero-line],[data-hero-fade]', { clearProps: 'all' }); this.update(); } }, 4500);
+    };
+    go();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.ScrollTrigger && ScrollTrigger.getAll().forEach(t => t.kill()); }
+  measure() {
+    const sy = window.scrollY, q = s => [...document.querySelectorAll(s)];
+    this.frames = q('[data-frame]').map(el => ({ el, ov: el.querySelector('[data-ov]'), vl: el.querySelector('[data-vl]') }));
+    const top = id => { const e = document.getElementById(id); return e ? e.getBoundingClientRect().top + sy : 0; };
+    this.tops = ['capabilities', 'work', 'process', 'studio', 'contact'].map(top);
+    const ft = document.querySelector('footer'); this.tops.push(ft ? ft.getBoundingClientRect().top + sy : 0);
+    const c = s => q(s).map(e => { const r = e.getBoundingClientRect(); return r.top + sy + r.height / 2; });
+    this.cap = c('[data-pillar]'); this.wrk = c('[data-wrow]'); this.prc = c('[data-pstage]');
+    const pl = document.getElementById('pline');
+    if (pl) { const r = pl.getBoundingClientRect(); this.pl = { y: r.top + sy, h: r.height }; }
+    this.update();
+  }
+  spec(k, W, H, sy) {
+    const cl = a => Math.min(1, Math.max(0, a));
+    const P = (x, y, w, h, ct = 0, d = 0, v = 0, o = 1) => ({ x, y, w, h, ct, d, v, o });
+    const pc = r => P(r[0] * W / 100, r[1] * H / 100, r[2] * W / 100, r[3] * H / 100);
+    if (k === 0) return [[33, 24, 22, 44], [46, 34, 30, 52], [84, 42, 9, 22], [3, 80, 15, 12]].map(pc);
+    if (k === 'mid') { const h = this.spec(0, W, H, sy); h.forEach(p => p.o = 0); h[0] = P(0, 0, W, H, 0, 0, .82); return h; }
+    if (k === 1) {
+      const Y = [[12, 70], [22, 64], [8, 76], [26, 56]]; let x = W * .58;
+      return Y.map((y, i) => { const f = this.cap[i] ? cl(1 - Math.abs(this.cap[i] - sy - H / 2) / (H * .5)) : 0; const w = W * (.065 + .07 * f); const p = P(x, y[0] * H / 100, w, y[1] * H / 100, 0, f * .85); x += w + W * .012; return p; });
+    }
+    if (k === 2) return [0, 1, 2, 3].map(i => { const f = i === 0 ? 1 : (this.wrk[i] ? cl((H * .85 - (this.wrk[i] - sy)) / (H * .4)) : 0); return P((48 + 2 * i) * W / 100, (14 + 2 * i) * H / 100, W * .4, H * .66, (1 - f) * 100); });
+    if (k === 3) return [0, 1, 2, 3].map(i => { const f = this.prc[i] ? cl((H * .75 - (this.prc[i] - sy)) / (H * .35)) : 0; return P((62 + 8 * i) * W / 100, H * .12, Math.max(3, W * .004), H * (.1 + .66 * f), 0, 1); });
+    if (k === 4) { const s = Math.min(W * .14, H * .28), cx = W * .78, cy = H * .5, g = 5; const d = [1, 0, 0, 1];
+      return [[-1, -1], [0, -1], [-1, 0], [0, 0]].map((a, i) => P(cx + (a[0] < 0 ? -s - g / 2 : g / 2), cy + (a[1] < 0 ? -s - g / 2 : g / 2), s, s, 0, d[i])); }
+    const pre = k === 5 ? 'c' : 'f', d = [1, 0, 0, 1];
+    return [0, 1, 2, 3].map(i => { const e = document.querySelector(`[data-slot="${pre}-${i}"]`); if (!e) return P(W / 2, H / 2, 0, 0, 0, d[i], 0, 0); const r = e.getBoundingClientRect(); return P(r.left, r.top, r.width, r.height, 0, d[i]); });
+  }
+  update() {
+    if (!this.frames) return;
+    const sy = window.scrollY, W = innerWidth, H = innerHeight, cl = a => Math.min(1, Math.max(0, a)), ease = t => t * t * (3 - 2 * t);
+    const nav = document.querySelector('[data-nav]');
+    if (nav) {
+      const dy = sy - (this.lastY || 0); this.lastY = sy;
+      if (Math.abs(dy) > 2 && !this.state.menu) nav.style.transform = sy > 160 && dy > 0 ? 'translateY(-110%)' : 'translateY(0)';
+      const inn = nav.querySelector('[data-navin]'); if (inn) inn.style.paddingTop = inn.style.paddingBottom = sy > 60 ? '12px' : '';
+      const pr = nav.querySelector('[data-navprog]'); if (pr) pr.style.transform = `scaleX(${cl(sy / Math.max(1, document.documentElement.scrollHeight - H))})`;
+    }
+    const ids = ['capabilities', 'work', 'process', 'studio', 'contact']; let act = -1;
+    ids.forEach((id, i) => { const e = document.getElementById(id); if (e && e.getBoundingClientRect().top < H * .4) act = i; });
+    if (act !== this.state.active) this.setState({ active: act });
+    if (!this.wm) { this.wm = document.querySelector('[data-wm]'); this.ld = document.getElementById('liqd'); this.lt = document.getElementById('liqt'); }
+    if (this.ld && !this.reduce) {
+      const pg = cl(sy / Math.max(1, document.documentElement.scrollHeight - H)), w = .5 - .5 * Math.cos(pg * Math.PI * 2 * 3.5);
+      this.ld.setAttribute('scale', (w * w * 150).toFixed(1));
+      this.lt.setAttribute('baseFrequency', `${(.005 + pg * .004).toFixed(4)} ${(.008 + w * .004).toFixed(4)}`);
+      this.wm.style.transform = `translate(${-46 + Math.sin(pg * 6) * 3}%,${-48 - pg * 6}%) rotate(${pg * 14 - 4}deg) scale(${1 + w * .06})`;
+    }
+    let j = -1, t = 0;
+    this.tops.forEach((tp, i) => { const p = cl((H - (tp - sy)) / (H * .9)); if (p > 0) { j = i; t = p; } });
+    if (this.reduce) t = Math.round(t);
+    const L = (a, b, e) => { const o = {}; for (const k in a) o[k] = a[k] + (b[k] - a[k]) * e; return o; };
+    let S;
+    if (j < 0 || t === 0) S = this.spec(j < 0 ? 0 : j, W, H, sy).map(p => p);
+    else if (j === 0) { const a = this.spec(0, W, H, sy), m = this.spec('mid', W, H, sy), b = this.spec(1, W, H, sy); S = t < .5 ? a.map((p, i) => L(p, m[i], ease(t * 2))) : m.map((p, i) => L(p, b[i], ease((t - .5) * 2))); }
+    else { const a = this.spec(j, W, H, sy), b = this.spec(j + 1, W, H, sy); S = a.map((p, i) => L(p, b[i], ease(t))); }
+    if (j >= 0 && t === 1 && j !== 0) S = this.spec(j + 1, W, H, sy);
+    const iv = this.intro ? this.intro.v : 1, dim = W < 900 ? .4 : 1;
+    this.frames.forEach((f, i) => {
+      const p = S[i]; if (!p) return;
+      const ct = Math.max(p.ct, (1 - iv) * 100);
+      f.el.style.width = Math.max(0, p.w) + 'px'; f.el.style.height = Math.max(0, p.h) + 'px';
+      f.el.style.transform = `translate3d(${p.x}px,${p.y}px,0)`;
+      f.el.style.clipPath = ct > .1 ? `inset(${ct}% 0 0 0)` : 'none';
+      f.el.style.opacity = (p.o * dim).toFixed(3);
+      f.ov.style.opacity = p.d.toFixed(3); f.vl.style.opacity = p.v.toFixed(3);
+    });
+    if (this.pl) {
+      const p = cl((sy + H * .5 - this.pl.y) / this.pl.h);
+      const f = document.getElementById('pfill'), d = document.getElementById('pdot');
+      if (f) { f.style.height = p * this.pl.h + 'px'; d.style.top = p * this.pl.h + 'px'; }
+      document.querySelectorAll('[data-pstage]').forEach(s => { const r = s.getBoundingClientRect(); s.style.opacity = r.top < H * .55 ? 1 : .35; });
+    }
+  }
+  renderVals() {
+    const s = this.state, desktop = s.w >= 900;
+    const tog = (arr, v) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+    const chip = (label, on, toggle) => ({ label, on, toggle, bg: on ? '#181A1B' : '#fff', fg: on ? '#fff' : '#181A1B', bd: on ? '#181A1B' : '#D9DDE1' });
+    const AREAS = ['Product engineering', 'Experience and creative technology', 'Data, AI and automation', 'Security and reliability'];
+    const TIMES = ['Under 1 month', '1–3 months', '3–6 months', '6+ months', 'Not sure yet'];
+    const body = `Name: ${s.name}\nEmail: ${s.email}\nAreas: ${s.areas.join(', ') || '—'}\nTimeline: ${s.time || '—'}\n\n${s.brief}`;
+    const mailto = `mailto:hello@agency.example?subject=${encodeURIComponent('New project enquiry')}&body=${encodeURIComponent(body)}`;
+    const d = t => ({ t, tag: 'Draft', color: '#62676E' }), i = t => ({ t, tag: '', color: '#181A1B' });
+    const pillars = [
+      ['Product engineering', ['Web applications and SaaS', 'Mobile applications (iOS and Android)', 'Custom business software', 'APIs and system integrations', 'Database architecture', 'Cloud infrastructure', 'DevOps, testing and deployment'].map(i)],
+      ['Experience and creative technology', [...['UI and UX design', 'Product design and prototyping', 'Design systems', 'Motion design and animation', '3D and interactive experiences', 'Creative development and digital storytelling'].map(i), d('Brand and interface design')]],
+      ['Data, AI and automation', [...['Data analysis and visualisation', 'Business intelligence and dashboards', 'AI integrations and intelligent applications', 'Workflow and process automation', 'AI agents and chatbot integrations'].map(i), d('Data engineering and pipelines')]],
+      ['Security and reliability', [...['Secure software development', 'Authentication and access control', 'Application security', 'Quality assurance and performance optimisation'].map(i), d('Infrastructure hardening'), d('Authorised security assessments')]]
+    ].map(p => ({ title: p[0], items: p[1] }));
+    const cell = v => v == 2 ? { bg: '#181A1B', bd: '#181A1B' } : v == 1 ? { bg: '#fff', bd: '#181A1B' } : { bg: '#D9DDE1', bd: '#D9DDE1' };
+    const mx = ['Launch a product', 'Make operations smarter', 'Harden what already exists', 'Add intelligence to a product'], lv = [[2, 2, 1, 1], [1, 0, 2, 1], [1, 0, 0, 2], [2, 1, 2, 1]];
+    const projects = [
+      ['The Instrument', '3D and creative development', 'A gimbal from Blender to browser: modelled, rigged and shipped as an interactive real-time piece.', 'Experiment · assets to be added'],
+      ['Signal board', 'Data and dashboards', 'A dashboard exploring how dense operational data can stay readable.', 'Concept · synthetic data'],
+      ['Access review', 'Security and reliability', 'A permissions-review console that makes who-can-do-what auditable at a glance.', 'Concept · not a client project'],
+      ['Intake to ticket', 'AI and automation', 'A workflow that turns incoming requests into tickets, with a human approval step.', 'Concept · not a client project']
+    ].map(w => ({ title: w[0], cat: w[1], desc: w[2], status: w[3] }));
+    const mob = !desktop;
+    return {
+      colW: desktop ? '54%' : '100%',
+      navBlend: s.menu && mob ? 'normal' : 'difference', navBg: s.menu && mob ? '#fff' : 'transparent', navFg: s.menu && mob ? '#181A1B' : '#fff',
+      desktop, mobile: mob, menuOpen: s.menu && mob, menuLabel: s.menu ? 'Close' : 'Menu',
+      toggleMenu: () => this.setState(x => ({ menu: !x.menu })), closeMenu: () => this.setState({ menu: false }),
+      links: ['Capabilities', 'Work', 'Process', 'Studio', 'Contact'].map((l, i) => ({ label: l, href: '#' + l.toLowerCase(), bg: s.active === i ? '#181A1B' : 'transparent', fg: s.active === i ? '#fff' : '#181A1B' })),
+      pillars, projects,
+      matrix: mx.map((n, k) => ({ name: n, cells: lv[k].map(cell) })),
+      stages: [
+        ['Discover', 'We learn the users, the system and the constraints, and agree what success looks like.', 'Brief, scope and risks'],
+        ['Define', 'Design, architecture and security requirements are shaped together, not handed over.', 'Prototype, architecture, plan'],
+        ['Build', 'Short iterations from one shared backlog, with a working demo at the end of each.', 'Working software, every iteration'],
+        ['Validate and deliver', 'Testing, performance and security checks, then a documented handover.', 'Release, code, designs, documentation']
+      ].map(x => ({ title: x[0], desc: x[1], out: x[2] })),
+      agreements: ['One shared backlog', 'Working demos at the end of iterations', 'Documented decisions', 'Handover of code, designs and documentation'],
+      principles: ['Design and engineering share one backlog.', 'Security is a requirement, not a phase.', 'AI should earn its place.'].map(t => ({ t })),
+      areas: AREAS.map(a => chip(a, s.areas.includes(a), () => this.setState(x => ({ areas: tog(x.areas, a) })))),
+      times: TIMES.map(a => chip(a, s.time === a, () => this.setState({ time: a }))),
+      name: s.name, email: s.email, brief: s.brief,
+      setName: e => this.setState({ name: e.target.value }), setEmail: e => this.setState({ email: e.target.value }), setBrief: e => this.setState({ brief: e.target.value }),
+      noSubmit: e => e.preventDefault(), mailto
+    };
+  }
+}
+</script>
+</body>
+</html>

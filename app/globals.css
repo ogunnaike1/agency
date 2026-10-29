@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PP Neue Montreal: drop licensed files in public/fonts/ (see README). Falls back to system sans until then. */
+@font-face { font-family: 'PP Neue Montreal'; font-weight: 400; font-style: normal; font-display: swap; src: local('PP Neue Montreal'), local('PPNeueMontreal-Book'), url('/fonts/PPNeueMontreal-Book.woff2') format('woff2'); }
+@font-face { font-family: 'PP Neue Montreal'; font-weight: 500; font-style: normal; font-display: swap; src: local('PP Neue Montreal Medium'), local('PPNeueMontreal-Medium'), url('/fonts/PPNeueMontreal-Medium.woff2') format('woff2'); }
+:root { --font-sans: 'PP Neue Montreal', 'Helvetica Neue', Arial; --font-display: 'Clash Display', 'PP Neue Montreal', 'Helvetica Neue', Arial; }
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-graphite font-sans antialiased; font-style: normal; }
+* { font-style: normal; }
+::selection { background: #222B33; color: #fff; }
+a { color: inherit; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+@layer components {
+  .label-mono { @apply font-mono text-[11px] uppercase tracking-[.14em] text-slate; }
+  .h-display { @apply font-display font-semibold uppercase tracking-tightest leading-[.88]; }
+  .btn-dark { @apply inline-flex items-center bg-graphite text-white border border-graphite px-7 py-4 text-[15px] font-medium transition-colors hover:bg-steel hover:border-steel hover:text-graphite; }
+  .btn-line { @apply inline-flex items-center border border-silver px-7 py-4 text-[15px] font-medium transition-colors hover:border-steel hover:bg-soft; }
+  .field { @apply block w-full mt-2.5 bg-transparent border-0 border-b border-silver py-2.5 text-lg text-graphite outline-none transition-colors focus:border-graphite; }
+}
