@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
+import MobileArt from './MobileArt';
 import { STAGES, AGREEMENTS } from '@/lib/data';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +26,7 @@ export default function Process() {
     <section id="process" data-screen-label="Process" className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)] py-[clamp(60px,8vw,140px)]">
       <SectionLabel>Process</SectionLabel>
       <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">How we work</MaskHeading>
+      <MobileArt i={3} className="mt-10" />
       <div ref={line} className="relative mt-[clamp(40px,5vw,80px)] pl-[clamp(28px,4vw,56px)] min-[900px]:max-w-[54%]">
         <div className="absolute bottom-0 left-0 top-0 w-px bg-silver" />
         <div ref={fill} className="absolute left-0 top-0 h-0 w-px bg-graphite" />

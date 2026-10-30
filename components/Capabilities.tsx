@@ -1,5 +1,6 @@
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
+import MobileArt from './MobileArt';
 import { PILLARS, MATRIX } from '@/lib/data';
 
 const dot = ['bg-dusty border-dusty', 'bg-white border-graphite', 'bg-steel border-graphite'];
@@ -12,9 +13,11 @@ export default function Capabilities() {
         <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">Four pillars, one build.</MaskHeading>
         <p className="mt-7 max-w-[520px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-slate">Most products need more than code. These four areas are organised so they can be bought together, which is how they work best, or separately.</p>
       </div>
+      <MobileArt i={1} className="mt-10" />
       <div className="mt-[clamp(40px,5vw,80px)]">
-        {PILLARS.map((p) => (
-          <article key={p.title} data-pillar className="min-h-[62vh] border-t border-graphite py-[clamp(40px,5vw,80px)] min-[900px]:max-w-[54%]">
+        {PILLARS.map((p, pi) => (
+          <article key={p.title} data-pillar className="min-h-[62vh] max-[899px]:min-h-0 border-t border-graphite py-[clamp(40px,5vw,80px)] min-[900px]:max-w-[54%]">
+            <MobileArt i={pi + 1} pos={['center','left','right','bottom'][pi]} className="mb-6 !aspect-[16/9]" />
             <h3 className="h-display mb-[clamp(24px,3vw,40px)] text-[clamp(36px,5.4vw,96px)] leading-[.9]">{p.title}</h3>
             <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-x-8 p-0">
               {p.items.map((it) => (

@@ -1,5 +1,6 @@
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
+import MobileArt from './MobileArt';
 import { PROJECTS } from '@/lib/data';
 
 export default function Work() {
@@ -8,12 +9,13 @@ export default function Work() {
       <SectionLabel>Work</SectionLabel>
       <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">Work and experiments</MaskHeading>
       <div className="mt-[clamp(24px,4vw,64px)]">
-        {PROJECTS.map((w) => (
-          <article key={w.title} data-wrow className="flex min-h-[78vh] items-center py-[clamp(24px,4vw,56px)]">
-            <div className="min-[900px]:max-w-[54%]">
+        {PROJECTS.map((w, wi) => (
+          <article key={w.title} data-wrow className="flex min-h-[78vh] items-center max-[899px]:min-h-0 py-[clamp(24px,4vw,56px)]">
+            <div className="min-w-0 min-[900px]:max-w-[54%]">
+              <MobileArt i={wi + 2} pos={['center','left','right','bottom'][wi % 4]} className="mb-5" />
               <p className="label-mono max-w-[420px] border-b border-silver pb-3.5">{w.cat}</p>
               {/* difference blend: title inverts as it crosses the plate */}
-              <h3 className="relative my-5 w-max max-w-[92vw] font-display text-[clamp(34px,6.6vw,116px)] font-semibold uppercase leading-[.88] tracking-tightest text-diff mix-blend-difference">{w.title}</h3>
+              <h3 className="relative my-5 w-max max-w-[92vw] max-[899px]:w-auto max-[899px]:max-w-full max-[899px]:[overflow-wrap:anywhere] font-display text-[clamp(34px,6.6vw,116px)] font-semibold uppercase leading-[.88] tracking-tightest text-diff mix-blend-difference">{w.title}</h3>
               <p className="max-w-[420px] text-base leading-[1.55] text-slate">{w.desc}</p>
               <span className="label-mono mt-[18px] inline-block border border-silver bg-white/85 px-2.5 py-[7px] text-[10px] text-graphite">{w.status}</span>
             </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from '@/lib/motion';
+import { ART } from '@/lib/art';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,14 +13,6 @@ const ease = (t: number) => t * t * (3 - 2 * t);
 const P = (x: number, y: number, w: number, h: number, ct = 0, d = 0, v = 0, o = 1): P => ({ x, y, w, h, ct, d, v, o });
 const lerp = (a: P, b: P, e: number): P => ({ x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e, w: a.w + (b.w - a.w) * e, h: a.h + (b.h - a.h) * e, ct: a.ct + (b.ct - a.ct) * e, d: a.d + (b.d - a.d) * e, v: a.v + (b.v - a.v) * e, o: a.o + (b.o - a.o) * e });
 
-// Unsplash photography (free licence); a flat dusty-blue wash keeps it inside the palette. Swap for client imagery any time.
-const u = (id: string) => `linear-gradient(rgba(198,212,223,.3),rgba(198,212,223,.3)),url(https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70) center/cover no-repeat #C6D4DF`;
-const ART = [
-  u('photo-1487958449943-2429e8be8625'), // hero: pale architecture
-  u('photo-1524758631624-e2822e304c36'), // capabilities: bright studio interior
-  u('photo-1519389950473-47ba0277781c'), // work: desk workspace
-  u('photo-1441974231531-c6227db76b6e'), // process: forest
-];
 
 /**
  * Persistent stage: four fixed plates recomposed per chapter (hero → capabilities → work → process → studio → contact → footer).
@@ -47,6 +40,10 @@ export default function Stage() {
     const spec = (k: number | 'mid', W: number, H: number, sy: number): P[] => {
       const pc = (r: number[]) => P((r[0] * W) / 100, (r[1] * H) / 100, (r[2] * W) / 100, (r[3] * H) / 100);
       const mob = W < 900; // phones: frames hug the right edge so copy stays readable
+      if (mob && k !== 0 && k !== 5 && k !== 6) { // phones: sections after the hero carry their own in-flow images (MobileArt), so the fixed plates fade out
+        const z = () => P(W / 2, H / 2, 0, 0, 0, 0, 0, 0);
+        return [z(), z(), z(), z()];
+      }
       const hero = () => (mob ? [[34, 20, 58, 30], [10, 44, 52, 26], [70, 58, 22, 14], [4, 14, 22, 9]] : [[33, 24, 22, 44], [46, 34, 30, 52], [84, 42, 9, 22], [3, 80, 15, 12]]).map(pc);
       if (k === 0) return hero();
       if (k === 'mid') { const h = hero(); h.forEach((p) => (p.o = 0)); h[0] = mob ? P(W * 0.72, 0, W * 0.28, H, 0, 0.5) : P(0, 0, W, H, 0, 0, 0.82); return h; } // plate 0 takes over the screen
