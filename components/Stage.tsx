@@ -15,10 +15,13 @@ const lerp = (a: P, b: P, e: number): P => ({ x: a.x + (b.x - a.x) * e, y: a.y +
 
 
 /**
- * Persistent stage: four fixed plates recomposed per chapter (hero → capabilities → work → process → studio → contact → footer).
+ * Persistent stage: four fixed plates recomposed per chapter (hero → services → work → process → studio → contact → footer).
  * Pure scroll-driven interpolation (no pinning). Fully reversible.
  */
-export default function Stage() {
+export type StagePage = 'home' | 'services' | 'work' | 'process' | 'studio' | 'contact';
+const CHAPTER: Record<StagePage, number> = { home: 0, services: 1, work: 2, process: 3, studio: 4, contact: 5 };
+
+export default function Stage({ page }: { page: StagePage }) {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,13 +29,14 @@ export default function Stage() {
     const ovs = plates.map((p) => p.querySelector<HTMLElement>('[data-ov]')!);
     const vls = plates.map((p) => p.querySelector<HTMLElement>('[data-vl]')!);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    motion.reduce = reduce; if (reduce) motion.intro.v = 1;
+    motion.reduce = reduce; if (reduce || page !== 'home') motion.intro.v = 1;
+    const k0 = CHAPTER[page];
     let tops: number[] = [], cap: number[] = [], wrk: number[] = [], prc: number[] = [];
 
     const centers = (sel: string) => Array.from(document.querySelectorAll(sel)).map((e) => { const r = e.getBoundingClientRect(); return r.top + scrollY + r.height / 2; });
     const measure = () => {
       const top = (sel: string) => { const e = document.querySelector(sel); return e ? e.getBoundingClientRect().top + scrollY : 0; };
-      tops = ['#capabilities', '#work', '#process', '#studio', '#contact', 'footer'].map(top);
+      tops = ['footer'].map(top);
       cap = centers('[data-pillar]'); wrk = centers('[data-wrow]'); prc = centers('[data-pstage]');
       update();
     };
@@ -71,14 +75,9 @@ export default function Stage() {
     const update = () => {
       if (!tops.length) return;
       const sy = scrollY, W = innerWidth, H = innerHeight;
-      let j = -1, t = 0;
-      tops.forEach((tp, i) => { const p = cl((H - (tp - sy)) / (H * 0.9)); if (p > 0) { j = i; t = p; } });
-      if (reduce) t = Math.round(t);
-      let S: P[];
-      if (j < 0 || t === 0) S = spec(j < 0 ? 0 : j, W, H, sy);
-      else if (j === 0) { const a = spec(0, W, H, sy), m = spec('mid', W, H, sy), b = spec(1, W, H, sy); S = t < 0.5 ? a.map((p, i) => lerp(p, m[i], ease(t * 2))) : m.map((p, i) => lerp(p, b[i], ease((t - 0.5) * 2))); }
-      else if (t === 1) S = spec(j + 1, W, H, sy);
-      else { const a = spec(j, W, H, sy), b = spec(j + 1, W, H, sy); S = a.map((p, i) => lerp(p, b[i], ease(t))); }
+      const t0 = tops[0], t = reduce ? Math.round(cl((H - (t0 - sy)) / (H * 0.9))) : cl((H - (t0 - sy)) / (H * 0.9));
+      const a = spec(k0, W, H, sy);
+      const S: P[] = t === 0 ? a : (() => { const b = spec(6, W, H, sy); return a.map((p, i) => lerp(p, b[i], ease(t))); })();
       const iv = motion.intro.v, dim = W < 900 ? 0.92 : 1;
       plates.forEach((el, i) => {
         const p = S[i], ct = Math.max(p.ct, (1 - iv) * 100);
@@ -98,7 +97,7 @@ export default function Stage() {
     measure();
     const late = setTimeout(measure, 600);
     return () => { st.kill(); clearTimeout(late); removeEventListener('resize', onResize); removeEventListener('load', onResize); motion.update = () => {}; };
-  }, []);
+  }, [page]);
 
   return (
     <div ref={root} aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">

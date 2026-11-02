@@ -39,7 +39,7 @@ export default function Process() {
           </div>
         ))}
       </div>
-      <div className="mt-[clamp(32px,4vw,56px)] flex flex-wrap items-baseline gap-x-8 gap-y-3 border-t border-graphite pt-6 min-[900px]:max-w-[54%]">
+      <div data-reveal className="mt-[clamp(32px,4vw,56px)] flex flex-wrap items-baseline gap-x-8 gap-y-3 border-t border-graphite pt-6 min-[900px]:max-w-[54%]">
         <span className="label-mono">Proposed agreements — to be confirmed</span>
         {AGREEMENTS.map((a) => <span key={a} className="text-[15px]">{a}</span>)}
       </div>

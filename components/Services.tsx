@@ -5,13 +5,13 @@ import { PILLARS, MATRIX } from '@/lib/data';
 
 const dot = ['bg-dusty border-dusty', 'bg-white border-graphite', 'bg-steel border-graphite'];
 
-export default function Capabilities() {
+export default function Services() {
   return (
-    <section id="capabilities" data-screen-label="Capabilities" className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)] py-[clamp(60px,8vw,140px)]">
-      <SectionLabel>Capabilities</SectionLabel>
+    <section id="services" data-screen-label="Services" className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)] py-[clamp(60px,8vw,140px)]">
+      <SectionLabel>Services</SectionLabel>
       <div className="min-[900px]:max-w-[54%]">
         <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">Four pillars, one build.</MaskHeading>
-        <p className="mt-7 max-w-[520px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-slate">Most products need more than code. These four areas are organised so they can be bought together, which is how they work best, or separately.</p>
+        <p data-reveal className="mt-7 max-w-[520px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-slate">Most products need more than code. These four areas are organised so they can be bought together, which is how they work best, or separately.</p>
       </div>
       <MobileArt i={1} className="mt-10" />
       <div className="mt-[clamp(40px,5vw,80px)]">
@@ -31,7 +31,7 @@ export default function Capabilities() {
           </article>
         ))}
       </div>
-      <div className="mt-[clamp(24px,3vw,48px)] border-t border-graphite pt-8 min-[900px]:max-w-[54%]">
+      <div data-reveal className="mt-[clamp(24px,3vw,48px)] border-t border-graphite pt-8 min-[900px]:max-w-[54%]">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h3 className="text-[clamp(26px,3vw,44px)] font-medium leading-none tracking-[-.03em]">How the pillars combine</h3>
           <span className="label-mono">● Lead &nbsp; ○ Support — indicative</span>

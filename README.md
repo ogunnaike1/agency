@@ -14,7 +14,7 @@ Put these in `app/fonts/`:
 Space Mono loads from Google via next/font. No other fonts; nothing italic or serif.
 
 ## Structure
-- `components/Stage.tsx` — the motion system: 4 fixed plates recomposed per chapter by scroll (hero → capabilities → work → process → studio → contact → footer). Reversible, no pinning. Replace the `ART` gradients with real imagery.
+- `components/Stage.tsx` — the motion system: 4 fixed plates recomposed per chapter by scroll (hero → services → work → process → studio → contact → footer). Reversible, no pinning. Replace the `ART` gradients with real imagery.
 - `components/Watermark.tsx` — faint logo cycling solid ↔ liquid on scroll.
 - `components/MaskHeading.tsx` — scrubbed SplitText char reveal.
 - `components/Hero.tsx` — load intro timeline + hero.

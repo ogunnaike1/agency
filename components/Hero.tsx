@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { motion } from '@/lib/motion';
 import CtaButton from './CtaButton';
@@ -37,8 +38,8 @@ export default function Hero() {
         <div className="flex flex-col items-start gap-5">
           <p className="label-mono max-w-[380px] leading-[1.7]">For startups, scale-ups and established teams building or modernising software.</p>
           <div className="flex flex-wrap gap-3">
-            <CtaButton href="#contact">Start a project</CtaButton>
-            <a href="#capabilities" className="btn-line">See capabilities ↗</a>
+            <CtaButton href="/contact">Start a project</CtaButton>
+            <Link href="/services" className="btn-line">See services ↗</Link>
           </div>
         </div>
       </div>

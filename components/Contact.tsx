@@ -17,7 +17,7 @@ export default function Contact() {
       <div className="flex flex-wrap gap-x-[clamp(32px,6vw,112px)] gap-y-12">
         <div className="max-w-[640px] flex-[1_1_340px]">
           <MaskHeading className="h-display text-[clamp(40px,6.4vw,112px)] leading-[.9]">Tell us what you are building.</MaskHeading>
-          <p className="mt-7 max-w-[480px] text-[17px] leading-[1.6] text-slate">Describe the product, the problem or the system you want to improve. Pick the areas involved if you know them; if not, we will work it out with you.</p>
+          <p data-reveal className="mt-7 max-w-[480px] text-[17px] leading-[1.6] text-slate">Describe the product, the problem or the system you want to improve. Pick the areas involved if you know them; if not, we will work it out with you.</p>
           <div className="mt-12 grid grid-cols-[repeat(2,clamp(32px,4vw,52px))] gap-[5px]">
             {[0, 1, 2, 3].map((i) => <div key={i} data-slot={`c-${i}`} className="aspect-square" />)}
           </div>
