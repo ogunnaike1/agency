@@ -9,7 +9,7 @@ export default function Studio() {
     <section id="studio" data-screen-label="Studio" className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)] py-[clamp(60px,8vw,140px)] min-h-screen">
       <SectionLabel>Independent people · Shared practice</SectionLabel>
       <div className="min-[900px]:max-w-[54%]">
-        <MaskHeading className="h-display text-[clamp(40px,5.6vw,98px)] leading-[.95]">Different skills. One team.</MaskHeading>
+        <MaskHeading className="h-display text-[clamp(40px,5.6vw,98px)] leading-[1]">Different skills. One team.</MaskHeading>
         <p className="mt-8 max-w-[600px] text-[clamp(17px,1.6vw,23px)] leading-relaxed text-slate">We bring product engineering, applied AI and creative development together to help companies build and improve digital products. Meet the people whose work shapes our practice.</p>
         <div className="mt-10 grid gap-6">
           {PRINCIPLES.map((principle) => <div key={principle} className="border-t border-graphite pt-4"><p className="text-[clamp(20px,1.8vw,28px)] font-medium leading-tight tracking-[-.02em]">{principle}</p></div>)}

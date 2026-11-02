@@ -13,7 +13,7 @@ export default {
         display: ['var(--font-display)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
-      letterSpacing: { tightest: '-.045em' },
+      letterSpacing: { tightest: '-.01em' },
     },
   },
   plugins: [],

@@ -11,7 +11,7 @@ export default function HomeIndex() {
           <Link key={n.href} href={n.href} data-reveal className="group flex items-baseline gap-4 border-t border-graphite py-[clamp(18px,2.4vw,32px)]">
             <span className="label-mono w-6 text-[11px]">0{i + 1}</span>
             <span className="min-w-0 flex-1">
-              <span className="block font-display text-[clamp(30px,4.6vw,76px)] font-semibold uppercase leading-[.9] tracking-tightest transition-transform duration-300 group-hover:translate-x-2">{n.label}</span>
+              <span className="block font-display text-[clamp(30px,4.6vw,76px)] font-semibold uppercase leading-[1] tracking-tightest transition-transform duration-300 group-hover:translate-x-2">{n.label}</span>
               <span className="mt-2 block text-[15px] text-slate">{n.line}</span>
             </span>
             <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>

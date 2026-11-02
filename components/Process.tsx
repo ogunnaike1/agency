@@ -33,7 +33,7 @@ export default function Process() {
         <div ref={dot} className="absolute -left-1 top-0 -mt-1 h-[9px] w-[9px] rotate-45 bg-steel ring-1 ring-graphite" />
         {STAGES.map((s) => (
           <div key={s.title} data-pstage className="min-h-[30vh] border-t border-silver py-[clamp(28px,4vw,52px)] opacity-35 transition-opacity">
-            <h3 className="h-display mb-4 text-[clamp(30px,4vw,64px)] leading-[.95]">{s.title}</h3>
+            <h3 className="h-display mb-4 text-[clamp(30px,4vw,64px)] leading-[1]">{s.title}</h3>
             <p className="m-0 max-w-[460px] text-base leading-[1.55]">{s.desc}</p>
             <p className="label-mono mt-3.5 leading-normal">Output — {s.out}</p>
           </div>

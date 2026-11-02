@@ -16,7 +16,7 @@ a { color: inherit; }
 
 @layer components {
   .label-mono { @apply font-mono text-[11px] uppercase tracking-[.14em] text-slate; }
-  .h-display { @apply font-display font-semibold uppercase tracking-tightest leading-[.88]; }
+  .h-display { @apply font-display font-semibold uppercase tracking-tightest leading-[1]; word-spacing: .12em; }
   .btn-dark { @apply inline-flex items-center bg-graphite text-white border border-graphite px-7 py-4 text-[15px] font-medium transition-colors hover:bg-steel hover:border-steel hover:text-graphite; }
   .btn-line { @apply inline-flex items-center border border-silver px-7 py-4 text-[15px] font-medium transition-colors hover:border-steel hover:bg-soft; }
   .field { @apply block w-full mt-2.5 bg-transparent border-0 border-b border-silver py-2.5 text-lg text-graphite outline-none transition-colors focus:border-graphite; }

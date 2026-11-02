@@ -18,7 +18,7 @@ export default function Services() {
         {PILLARS.map((p, pi) => (
           <article key={p.title} data-pillar className="min-h-[62vh] max-[899px]:min-h-0 border-t border-graphite py-[clamp(40px,5vw,80px)] min-[900px]:max-w-[54%]">
             <MobileArt i={pi + 1} pos={['center','left','right','bottom'][pi]} className="mb-6 !aspect-[16/9]" />
-            <h3 className="h-display mb-[clamp(24px,3vw,40px)] text-[clamp(36px,5.4vw,96px)] leading-[.9]">{p.title}</h3>
+            <h3 className="h-display mb-[clamp(24px,3vw,40px)] text-[clamp(36px,5.4vw,96px)] leading-[1]">{p.title}</h3>
             <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-x-8 p-0">
               {p.items.map((it) => (
                 <li key={it.t} className={`flex items-baseline gap-3.5 border-t border-silver py-4 text-base leading-snug transition-[padding] duration-300 hover:pl-2.5 ${it.draft ? 'text-slate' : ''}`}>

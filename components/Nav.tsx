@@ -91,7 +91,7 @@ export default function Nav() {
               style={{ transitionDelay: open ? `${180 + i * 70}ms` : '0ms' }}
               className={`group flex items-baseline gap-4 border-b border-stone py-[clamp(14px,3.2vh,26px)] transition-all duration-700 ease-out ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
               <span className="label-mono w-6 text-[11px]">0{i + 1}</span>
-              <span className={`flex-1 font-display text-[clamp(34px,10.5vw,64px)] font-semibold uppercase leading-none tracking-[-.03em] transition-transform duration-300 group-hover:translate-x-2 ${active === i ? 'text-steel' : ''}`}>{n.label}</span>
+              <span className={`flex-1 font-display text-[clamp(34px,10.5vw,64px)] font-semibold uppercase leading-none tracking-[-.005em] transition-transform duration-300 group-hover:translate-x-2 ${active === i ? 'text-steel' : ''}`}>{n.label}</span>
               <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
             </Link>
           ))}
