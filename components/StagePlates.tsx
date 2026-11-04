@@ -29,10 +29,11 @@ export default function StagePlates({ page }: { page: StagePage }) {
     const proj = root.current!.querySelector<HTMLElement>('[data-proj]')!;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     motion.reduce = reduce; if (reduce || page !== 'home') motion.intro.v = 1;
-    let media: HTMLElement | null = null, foot: HTMLElement | null = null, key = '';
+    let media: HTMLElement | null = null, foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
 
     const update = () => {
       const W = innerWidth, H = innerHeight, sy = scrollY, mob = W < 900;
+      if (wasMob !== mob) { wasMob = mob; sized = ''; }
       const iv = motion.intro.v;
       const k = `${sy.toFixed(1)}|${W}|${H}|${iv.toFixed(3)}`;
       if (k === key) return; key = k;
@@ -80,13 +81,23 @@ export default function StagePlates({ page }: { page: StagePage }) {
       plates.forEach((el, i) => {
         const { r, o, d } = out[i];
         const ct = tf > 0 ? 0 : (1 - iv) * 100;
-        el.style.width = Math.max(0, r.w) + 'px'; el.style.height = Math.max(0, r.h) + 'px';
-        el.style.transform = `translate3d(${r.x}px,${r.y}px,0)`;
-        el.style.clipPath = ct > 0.1 ? `inset(${ct}% 0 0 0)` : 'none';
+        if (mob) {
+          // phones: every plate stays viewport-sized and only a clip-path window moves. No layout, no resizing the
+          // image: just paint, which keeps up with touch scrolling where animating width/height did not.
+          if (sized !== `${W}x${H}`) { el.style.width = W + 'px'; el.style.height = H + 'px'; el.style.transform = 'none'; }
+          const top = r.y + (r.h * ct) / 100, right = W - (r.x + r.w), bottom = H - (r.y + r.h), left = r.x;
+          el.style.clipPath = `inset(${top.toFixed(1)}px ${right.toFixed(1)}px ${bottom.toFixed(1)}px ${left.toFixed(1)}px)`;
+        } else {
+          if (sized !== `${W}x${H}`) { el.style.width = ''; el.style.height = ''; }
+          el.style.width = Math.max(0, r.w) + 'px'; el.style.height = Math.max(0, r.h) + 'px';
+          el.style.transform = `translate3d(${r.x}px,${r.y}px,0)`;
+          el.style.clipPath = ct > 0.1 ? `inset(${ct}% 0 0 0)` : 'none';
+        }
         el.style.opacity = (o * dim).toFixed(3);
         el.style.visibility = o * dim < 0.002 ? 'hidden' : 'visible';
         ovs[i].style.opacity = d.toFixed(3);
       });
+      sized = `${W}x${H}`;
       proj.style.opacity = projO.toFixed(3);
     };
     motion.update = () => { key = ''; update(); };
