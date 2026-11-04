@@ -16,7 +16,7 @@ export default function MaskHeading({ children, className = '' }: { children: Re
     (document.fonts?.ready ?? Promise.resolve()).then(() => {
       if (cancelled || !el.current) return;
       ctx = gsap.context(() => {
-        const sp = SplitText.create(el.current!, { type: 'chars' });
+        const sp = SplitText.create(el.current!, { type: 'words,chars', wordsClass: 'inline-block whitespace-nowrap' });
         gsap.fromTo(sp.chars, { yPercent: 115, rotate: 6 }, {
           yPercent: 0, rotate: 0, ease: 'none', stagger: 0.03,
           scrollTrigger: { trigger: el.current!.parentElement, start: 'top 92%', end: 'top 55%', scrub: true },

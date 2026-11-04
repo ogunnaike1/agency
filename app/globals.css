@@ -21,3 +21,8 @@ a { color: inherit; }
   .btn-line { @apply inline-flex items-center border border-silver px-7 py-4 text-[15px] font-medium transition-colors hover:border-steel hover:bg-soft; }
   .field { @apply block w-full mt-2.5 bg-transparent border-0 border-b border-silver py-2.5 text-lg text-graphite outline-none transition-colors focus:border-graphite; }
 }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }

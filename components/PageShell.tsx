@@ -3,10 +3,13 @@ import Watermark from './Watermark';
 import Stage, { type StagePage } from './Stage';
 import Footer from './Footer';
 import Reveals from './Reveals';
+import SmoothScroll from './SmoothScroll';
+import ProjectModalProvider from './ProjectModal';
 
 /** Shared chrome for every route: watermark, scroll-driven plates, nav, footer. */
 export default function PageShell({ page, children }: { page: StagePage; children: React.ReactNode }) {
   return (
+    <ProjectModalProvider>
     <div id="top" className="relative overflow-x-clip">
       <Watermark />
       <Stage page={page} />
@@ -14,6 +17,8 @@ export default function PageShell({ page, children }: { page: StagePage; childre
       <main className={page === 'home' ? '' : 'pt-[clamp(56px,6vw,96px)]'}>{children}</main>
       <Footer />
       <Reveals />
+      <SmoothScroll />
     </div>
+    </ProjectModalProvider>
   );
 }

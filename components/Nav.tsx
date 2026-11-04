@@ -6,8 +6,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { NAV, EMAIL } from '@/lib/data';
 import CtaButton from './CtaButton';
+import { useProjectModal } from './ProjectModal';
 
 export default function Nav() {
+  const { open: openProject } = useProjectModal();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const active = NAV.findIndex((n) => n.href === pathname);
@@ -75,7 +77,7 @@ export default function Nav() {
         </nav>
         <span className="min-[900px]:hidden" />
         <div className="pointer-events-auto flex items-center gap-2.5 justify-self-end">
-          <CtaButton href="/contact" size="sm" data-nav-act className="hidden min-[900px]:inline-flex">Start a project</CtaButton>
+          <CtaButton onClick={openProject} size="sm" data-nav-act className="hidden min-[900px]:inline-flex">Start a project</CtaButton>
           <button data-nav-act onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'} className="group relative grid h-11 w-11 place-items-center rounded-full border border-stone bg-white/80 backdrop-blur-md transition-colors duration-300 hover:border-steel min-[900px]:hidden">
             <span className="relative block h-3 w-[18px]">
               <span className={`absolute left-0 h-[1.5px] bg-graphite transition-all duration-500 ease-[cubic-bezier(.7,0,.2,1)] ${open ? 'top-1/2 w-full -translate-y-1/2 rotate-45' : 'top-0 w-full'}`} />
@@ -97,7 +99,7 @@ export default function Nav() {
           ))}
         </nav>
         <div style={{ transitionDelay: open ? '560ms' : '0ms' }} className={`mt-8 flex flex-col gap-4 transition-all duration-700 ease-out ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
-          <CtaButton href="/contact" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)} className="w-full">Start a project</CtaButton>
+          <CtaButton tabIndex={open ? 0 : -1} onClick={() => { setOpen(false); openProject(); }} className="w-full">Start a project</CtaButton>
           <p className="label-mono flex flex-wrap justify-between gap-2"><span>Software &amp; creative technology studio</span><span>{EMAIL}</span></p>
         </div>
       </div>
