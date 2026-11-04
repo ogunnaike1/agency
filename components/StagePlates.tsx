@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import Image from 'next/image';
 import { motion } from '@/lib/motion';
 import { HERO_ART, STAGE_IMAGES } from '@/lib/art';
+import { TEAM } from '@/lib/data';
 import type { StagePage } from './Stage';
 
 type R = { x: number; y: number; w: number; h: number };
@@ -26,10 +27,10 @@ export default function StagePlates({ page }: { page: StagePage }) {
   useEffect(() => {
     const plates = Array.from(root.current!.querySelectorAll<HTMLElement>('[data-plate]'));
     const ovs = plates.map((p) => p.querySelector<HTMLElement>('[data-ov]')!);
-    const proj = root.current!.querySelector<HTMLElement>('[data-proj]')!;
+    const projs = plates.map((p) => p.querySelector<HTMLElement>('[data-proj]'));
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     motion.reduce = reduce; if (reduce || page !== 'home') motion.intro.v = 1;
-    let media: HTMLElement | null = null, foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
+    let media: HTMLElement | null = null, lastMedia: HTMLElement | null = null, persons: HTMLElement[] = [], foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
 
     const update = () => {
       const W = innerWidth, H = innerHeight, sy = scrollY, mob = W < 900;
@@ -38,6 +39,8 @@ export default function StagePlates({ page }: { page: StagePage }) {
       const k = `${sy.toFixed(1)}|${W}|${H}|${iv.toFixed(3)}`;
       if (k === key) return; key = k;
       media = media && media.isConnected ? media : document.querySelector<HTMLElement>('[data-card] [data-media]');
+      if (!lastMedia || !lastMedia.isConnected) { const all = document.querySelectorAll<HTMLElement>('[data-card] [data-media]'); lastMedia = all.length ? all[all.length - 1] : null; }
+      if (!persons.length || !persons[0].isConnected) persons = Array.from(document.querySelectorAll<HTMLElement>('[data-person] [data-pmedia]'));
       foot = foot && foot.isConnected ? foot : document.querySelector<HTMLElement>('footer');
       const rd = (t: number) => (reduce ? Math.round(t) : t);
 
@@ -49,7 +52,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
       const tf = foot ? rd(cl((H - foot.getBoundingClientRect().top) / (H * 0.9))) : 0;
       const topEnd = mob ? 84 : Math.min(120, Math.max(72, H * 0.1)); // where the first project card settles under the nav
 
-      let projO = 0;
+      const projO = [0, 0, 0, 0];
       const out = hero.map((h0, i) => {
         let r = h0, o = 1, d = 0;
         if (tf > 0) { // finale: gather into the footer mark
@@ -64,12 +67,28 @@ export default function StagePlates({ page }: { page: StagePage }) {
           let t2 = 0, mr: R | null = null;
           if (media) { mr = fromDom(media.getBoundingClientRect()); t2 = rd(cl((H * 0.95 - mr.y) / (H * 0.95 - topEnd))); }
           if (t2 > 0 && mr) {
-            r = lerp(full, mr, ease(t2)); projO = 1;
+            r = lerp(full, mr, ease(t2)); projO[0] = 1;
             o = t2 > 0.9 ? 1 - (t2 - 0.9) / 0.1 : 1; // crossfade onto the card's own (identical) image
           } else {
             r = lerp(h0, full, ease(t1));
-            projO = ease(cl((t1 - 0.4) / 0.45));
+            projO[0] = ease(cl((t1 - 0.4) / 0.45));
           }
+        } else if (persons[i - 1] && lastMedia && (() => {
+          // work → team: the last project frame splits into three strips that drop into the three portraits
+          const pr = fromDom(persons[i - 1].getBoundingClientRect());
+          const a = rd(cl((H * 0.88 - pr.y) / (H * 0.88 - H * 0.32)));
+          if (a <= 0) return false;
+          const lm = fromDom(lastMedia.getBoundingClientRect());
+          const sw = lm.w / 3;
+          const start: R = mob
+            ? { x: pr.x + pr.w * 0.1, y: pr.y + 70, w: pr.w * 0.8, h: pr.h * 0.8 }
+            : { x: lm.x + (i - 1) * sw, y: Math.max(lm.y, topEnd), w: sw, h: lm.h };
+          r = lerp(start, pr, ease(a));
+          o = ease(cl(a / 0.2)) * (a > 0.9 ? 1 - (a - 0.9) / 0.1 : 1);
+          projO[i] = 1;
+          return true;
+        })()) {
+          // handled above
         } else { // layered parallax: each plate leaves at its own speed
           r = { ...h0, y: h0.y - ease(t1) * H * (0.45 + 0.3 * i) };
           o = 1 - cl(t1 / 0.7);
@@ -98,7 +117,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
         ovs[i].style.opacity = d.toFixed(3);
       });
       sized = `${W}x${H}`;
-      proj.style.opacity = projO.toFixed(3);
+      projs.forEach((pj, i) => { if (pj) pj.style.opacity = projO[i].toFixed(3); });
     };
     motion.update = () => { key = ''; update(); };
 
@@ -115,9 +134,9 @@ export default function StagePlates({ page }: { page: StagePage }) {
     <div ref={root} aria-hidden className="pointer-events-none fixed inset-0 z-20 overflow-hidden">
       {HERO_ART.map((bg, i) => (
         <div key={i} data-plate className="absolute left-0 top-0 overflow-hidden border border-silver will-change-transform" style={{ background: bg, visibility: 'hidden' }}>
-          {i === 0 && (
+          {(i === 0 || TEAM[i - 1]?.image) && (
             <div data-proj className="absolute inset-0 opacity-0">
-              <Image src={STAGE_IMAGES[0]} alt="" fill sizes="100vw" className="object-cover object-top" />
+              <Image src={i === 0 ? STAGE_IMAGES[0] : TEAM[i - 1].image!} alt="" fill sizes="100vw" className={`object-cover ${i === 0 ? 'object-top' : 'object-center'}`} />
             </div>
           )}
           <i data-ov className="absolute inset-0 bg-graphite opacity-0" />

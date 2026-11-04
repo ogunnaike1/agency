@@ -26,7 +26,11 @@ export default function HomeTeam() {
     const el = root.current!;
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo('[data-tbg]', { clipPath: 'inset(9% 5% 0% 5% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 20%', scrub: true } });
+      // the dark chapter opens like a card growing to full bleed, holds, then closes again into a rule that the index draws from
+      gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%', end: 'bottom 15%', scrub: true } })
+        .fromTo('[data-tbg]', { clipPath: 'inset(9% 5% 0% 5% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', duration: 0.3 })
+        .to('[data-tbg]', { duration: 0.45 })
+        .to('[data-tbg]', { clipPath: 'inset(0% 5% 9% 5% round 28px)', ease: 'none', duration: 0.25 });
       // ticker: two rows travelling in opposite directions
       gsap.fromTo('[data-tick="a"]', { xPercent: 0 }, { xPercent: -28, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
       gsap.fromTo('[data-tick="b"]', { xPercent: -28 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });

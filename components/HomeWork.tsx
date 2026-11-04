@@ -61,6 +61,12 @@ export default function HomeWork() {
 
         // as the next card slides over, this one recedes
         const next = cards[i + 1];
+        if (!next) { // the last card recedes as the team chapter arrives
+          const inner = card.querySelector<HTMLElement>('[data-inner]')!;
+          const shade = card.querySelector<HTMLElement>('[data-shade]')!;
+          gsap.timeline({ scrollTrigger: { trigger: el, start: 'bottom 92%', end: 'bottom 30%', scrub: true } })
+            .to(inner, { scale: 0.93, ease: 'none' }, 0).to(shade, { opacity: 0.55, ease: 'none' }, 0);
+        }
         if (next) {
           const inner = card.querySelector<HTMLElement>('[data-inner]')!;
           const shade = card.querySelector<HTMLElement>('[data-shade]')!;
