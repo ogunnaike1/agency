@@ -40,7 +40,7 @@ export default function Hero() {
       <div className="relative flex min-h-[clamp(560px,min(57vw,84vh),1000px)] flex-col justify-end pt-[clamp(150px,16vw,260px)]">
         <p data-hero-fade className="label-mono absolute z-30 left-0 top-[clamp(80px,7vw,110px)] max-w-[220px] leading-normal">Software &amp; creative<br />technology studio</p>
         {/* diff text colour + mix-blend-difference: renders graphite on white, inverts over the plates */}
-        <h1 className="pointer-events-none relative z-30 m-0 flex flex-col font-display text-[clamp(40px,10vw,200px)] font-semibold uppercase leading-[.98] tracking-tightest [word-spacing:.12em] text-diff mix-blend-difference">
+        <h1 className="pointer-events-none relative z-30 m-0 flex flex-col font-display text-[clamp(40px,10vw,200px)] font-semibold uppercase leading-[.98] tracking-tightest [word-spacing:.12em] text-diff mix-blend-difference max-[899px]:text-graphite max-[899px]:mix-blend-normal">
           <span data-hero-row="0" className={`${wrap} self-start`}><span data-hero-line className={line}>Engineering,</span></span>
           <span data-hero-row="1" className="my-[.12em] block self-start overflow-hidden pb-[.06em] pl-[clamp(0px,18vw,320px)] text-[.4em] font-medium tracking-[-.005em]"><span data-hero-line className={line}>design and</span></span>
           <span data-hero-row="2" className={`${wrap} self-end`}><span data-hero-line className={line}>intelligence.</span></span>

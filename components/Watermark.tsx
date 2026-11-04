@@ -13,6 +13,8 @@ export default function Watermark() {
 
   useEffect(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // the displacement filter re-renders a screen-sized layer on every scroll frame: far too heavy for phones
+    if (matchMedia('(max-width: 899px), (pointer: coarse)').matches) { if (img.current) img.current.style.filter = 'none'; return; }
     const st = ScrollTrigger.create({
       start: 0, end: 'max',
       onUpdate: (s) => {

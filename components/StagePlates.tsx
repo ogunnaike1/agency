@@ -27,9 +27,20 @@ export default function StagePlates({ page }: { page: StagePage }) {
   useEffect(() => {
     const plates = Array.from(root.current!.querySelectorAll<HTMLElement>('[data-plate]'));
     const ovs = plates.map((p) => p.querySelector<HTMLElement>('[data-ov]')!);
+    const pins = plates.map((p) => p.querySelector<HTMLElement>('[data-pin]')!);
     const projs = plates.map((p) => p.querySelector<HTMLElement>('[data-proj]'));
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     motion.reduce = reduce; if (reduce || page !== 'home') motion.intro.v = 1;
+    // Phones: element rects are measured once in document space and reused (rect = docY - scrollY), so the per-frame loop
+    // never forces layout. Re-measured on resize / load / fonts / body size change.
+    const cache = new Map<Element, R>();
+    let lastW = innerWidth;
+    const rectOf = (el: Element, mob: boolean, sy: number): R => {
+      if (!mob) return fromDom(el.getBoundingClientRect());
+      let c = cache.get(el);
+      if (!c) { const b = el.getBoundingClientRect(); c = { x: b.left, y: b.top + sy, w: b.width, h: b.height }; cache.set(el, c); }
+      return { x: c.x, y: c.y - sy, w: c.w, h: c.h };
+    };
     let media: HTMLElement | null = null, lastMedia: HTMLElement | null = null, persons: HTMLElement[] = [], foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
 
     const update = () => {
@@ -49,7 +60,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
       const full: R = { x: 0, y: 0, w: W, h: H };
 
       const t1 = rd(cl(sy / (H * 0.95)));
-      const tf = foot ? rd(cl((H - foot.getBoundingClientRect().top) / (H * 0.9))) : 0;
+      const tf = foot ? rd(cl((H - rectOf(foot, mob, sy).y) / (H * 0.9))) : 0;
       const topEnd = mob ? 84 : Math.min(120, Math.max(72, H * 0.1)); // where the first project card settles under the nav
 
       const projO = [0, 0, 0, 0];
@@ -58,14 +69,14 @@ export default function StagePlates({ page }: { page: StagePage }) {
         if (tf > 0) { // finale: gather into the footer mark
           const s = document.querySelector<HTMLElement>(`[data-slot="f-${i}"]`);
           if (!s) return { r, o: 0, d };
-          const sr = fromDom(s.getBoundingClientRect());
+          const sr = rectOf(s, mob, sy);
           const start: R = { x: sr.x + sr.w * 0.3, y: sr.y + H * 0.22, w: sr.w * 0.4, h: sr.h * 0.4 };
           const e = ease(tf);
           return { r: lerp(start, sr, e), o: e, d: DIAG[i] * e };
         }
         if (i === 0) {
           let t2 = 0, mr: R | null = null;
-          if (media) { mr = fromDom(media.getBoundingClientRect()); t2 = rd(cl((H * 0.95 - mr.y) / (H * 0.95 - topEnd))); }
+          if (media) { mr = rectOf(media, mob, sy); t2 = rd(cl((H * 0.95 - mr.y) / (H * 0.95 - topEnd))); }
           if (t2 > 0 && mr) {
             r = lerp(full, mr, ease(t2)); projO[0] = 1;
             o = t2 > 0.9 ? 1 - (t2 - 0.9) / 0.1 : 1; // crossfade onto the card's own (identical) image
@@ -75,10 +86,10 @@ export default function StagePlates({ page }: { page: StagePage }) {
           }
         } else if (persons[i - 1] && lastMedia && (() => {
           // work → team: the last project frame splits into three strips that drop into the three portraits
-          const pr = fromDom(persons[i - 1].getBoundingClientRect());
+          const pr = rectOf(persons[i - 1], mob, sy);
           const a = rd(cl((H * 0.88 - pr.y) / (H * 0.88 - H * 0.32)));
           if (a <= 0) return false;
-          const lm = fromDom(lastMedia.getBoundingClientRect());
+          const lm = rectOf(lastMedia, mob, sy);
           const sw = lm.w / 3;
           const start: R = mob
             ? { x: pr.x + pr.w * 0.1, y: pr.y + 70, w: pr.w * 0.8, h: pr.h * 0.8 }
@@ -101,13 +112,16 @@ export default function StagePlates({ page }: { page: StagePage }) {
         const { r, o, d } = out[i];
         const ct = tf > 0 ? 0 : (1 - iv) * 100;
         if (mob) {
-          // phones: every plate stays viewport-sized and only a clip-path window moves. No layout, no resizing the
-          // image: just paint, which keeps up with touch scrolling where animating width/height did not.
-          if (sized !== `${W}x${H}`) { el.style.width = W + 'px'; el.style.height = H + 'px'; el.style.transform = 'none'; }
-          const top = r.y + (r.h * ct) / 100, right = W - (r.x + r.w), bottom = H - (r.y + r.h), left = r.x;
-          el.style.clipPath = `inset(${top.toFixed(1)}px ${right.toFixed(1)}px ${bottom.toFixed(1)}px ${left.toFixed(1)}px)`;
+          // phones: compositor-only. The plate is a viewport-sized box scaled to the window rect and its content is
+          // counter-scaled and shifted back, so the picture stays put while the window moves. Two transforms per
+          // frame: no layout, no repaint, no clip-path.
+          if (sized !== `${W}x${H}`) { el.style.width = W + 'px'; el.style.height = H + 'px'; el.style.borderWidth = '0'; }
+          const ry = r.y + (r.h * ct) / 100, rh = r.h * (1 - ct / 100);
+          const sx = Math.max(r.w / W, 0.001), sy2 = Math.max(rh / H, 0.001);
+          el.style.transform = `translate3d(${r.x.toFixed(2)}px,${ry.toFixed(2)}px,0) scale(${sx.toFixed(5)},${sy2.toFixed(5)})`;
+          pins[i].style.transform = `scale(${(1 / sx).toFixed(5)},${(1 / sy2).toFixed(5)}) translate3d(${(-r.x).toFixed(2)}px,${(-ry).toFixed(2)}px,0)`;
         } else {
-          if (sized !== `${W}x${H}`) { el.style.width = ''; el.style.height = ''; }
+          if (sized !== `${W}x${H}`) { el.style.width = ''; el.style.height = ''; el.style.borderWidth = ''; pins[i].style.transform = ''; }
           el.style.width = Math.max(0, r.w) + 'px'; el.style.height = Math.max(0, r.h) + 'px';
           el.style.transform = `translate3d(${r.x}px,${r.y}px,0)`;
           el.style.clipPath = ct > 0.1 ? `inset(${ct}% 0 0 0)` : 'none';
@@ -122,24 +136,29 @@ export default function StagePlates({ page }: { page: StagePage }) {
     motion.update = () => { key = ''; update(); };
 
     gsap.ticker.add(update);
-    const refresh = () => { key = ''; };
-    addEventListener('resize', refresh); addEventListener('load', refresh);
+    const refresh = () => { cache.clear(); key = ''; };
+    const onResize = () => { if (innerWidth !== lastW) { lastW = innerWidth; cache.clear(); } key = ''; }; // URL-bar height changes don't move anything
+    addEventListener('resize', onResize); addEventListener('load', refresh);
     document.fonts?.ready.then(refresh);
-    const late = setTimeout(refresh, 600);
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(refresh) : null;
+    ro?.observe(document.body);
+    const late = setTimeout(refresh, 600), late2 = setTimeout(refresh, 2000);
     update();
-    return () => { gsap.ticker.remove(update); clearTimeout(late); removeEventListener('resize', refresh); removeEventListener('load', refresh); motion.update = () => {}; };
+    return () => { gsap.ticker.remove(update); clearTimeout(late); clearTimeout(late2); ro?.disconnect(); removeEventListener('resize', onResize); removeEventListener('load', refresh); motion.update = () => {}; };
   }, [page]);
 
   return (
     <div ref={root} aria-hidden className="pointer-events-none fixed inset-0 z-20 overflow-hidden">
       {HERO_ART.map((bg, i) => (
-        <div key={i} data-plate className="absolute left-0 top-0 overflow-hidden border border-silver will-change-transform" style={{ background: bg, visibility: 'hidden' }}>
+        <div key={i} data-plate className="absolute left-0 top-0 overflow-hidden border border-silver will-change-transform" style={{ visibility: 'hidden', transformOrigin: '0 0' }}>
+          <div data-pin className="absolute inset-0 will-change-transform" style={{ background: bg, transformOrigin: '0 0' }}>
           {(i === 0 || TEAM[i - 1]?.image) && (
             <div data-proj className="absolute inset-0 opacity-0">
               <Image src={i === 0 ? STAGE_IMAGES[0] : TEAM[i - 1].image!} alt="" fill sizes="100vw" className={`object-cover ${i === 0 ? 'object-top' : 'object-center'}`} />
             </div>
           )}
           <i data-ov className="absolute inset-0 bg-graphite opacity-0" />
+          </div>
         </div>
       ))}
     </div>
