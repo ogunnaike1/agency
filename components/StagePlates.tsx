@@ -74,7 +74,9 @@ export default function StagePlates({ page }: { page: StagePage }) {
           const e = ease(tf);
           return { r: lerp(start, sr, e), o: e, d: DIAG[i] * e };
         }
-        if (i === 0) {
+        // phones: no full-bleed project plate and no portrait hand-off. Blown up to 100vw the project screenshots were blurry and
+        // the title overlapped their baked-in text; the cards and portraits sit in the flow instead, so plates just drift away.
+        if (i === 0 && !mob) {
           let t2 = 0, mr: R | null = null;
           if (media) { mr = rectOf(media, mob, sy); t2 = rd(cl((H * 0.95 - mr.y) / (H * 0.95 - topEnd))); }
           if (t2 > 0 && mr) {
@@ -84,7 +86,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
             r = lerp(h0, full, ease(t1));
             projO[0] = ease(cl((t1 - 0.4) / 0.45));
           }
-        } else if (persons[i - 1] && lastMedia && (() => {
+        } else if (!mob && persons[i - 1] && lastMedia && (() => {
           // work → team: the last project frame splits into three strips that drop into the three portraits
           const pr = rectOf(persons[i - 1], mob, sy);
           const a = rd(cl((H * 0.88 - pr.y) / (H * 0.88 - H * 0.32)));
@@ -154,7 +156,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
           <div data-pin className="absolute inset-0 will-change-transform" style={{ background: bg, transformOrigin: '0 0' }}>
           {(i === 0 || TEAM[i - 1]?.image) && (
             <div data-proj className="absolute inset-0 opacity-0">
-              <Image src={i === 0 ? STAGE_IMAGES[0] : TEAM[i - 1].image!} alt="" fill sizes="100vw" className={`object-cover ${i === 0 ? 'object-top' : 'object-center'}`} />
+              <Image src={i === 0 ? STAGE_IMAGES[0] : TEAM[i - 1].image!} alt="" fill sizes="100vw" className={`object-cover ${i === 0 ? 'object-top' : 'object-[50%_20%]'}`} />
             </div>
           )}
           <i data-ov className="absolute inset-0 bg-graphite opacity-0" />

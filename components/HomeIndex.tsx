@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionLabel from './SectionLabel';
 import { INDEX } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,10 +35,10 @@ export default function HomeIndex() {
             <i data-iline aria-hidden className="absolute left-0 top-0 h-px w-full origin-left bg-graphite" />
             <span className="label-mono w-6 text-[11px]">0{i + 1}</span>
             <span data-ititle className="min-w-0 flex-1">
-              <span className="block font-display text-[clamp(30px,4.6vw,76px)] font-semibold uppercase leading-[1] tracking-tightest transition-transform duration-300 group-hover:translate-x-2">{n.label}</span>
+              <span className="block font-display text-[clamp(24px,4.6vw,76px)] font-semibold uppercase leading-[1] tracking-tightest transition-transform duration-300 group-hover:translate-x-2">{n.label}</span>
               <span className="mt-2 block text-[15px] text-slate">{n.line}</span>
             </span>
-            <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+            <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"><ArrowUpRight className="h-5 w-5" /></span>
           </Link>
         ))}
       </div>

@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from '@/lib/motion';
 import CtaButton from './CtaButton';
 import { useProjectModal } from './ProjectModal';
+import { ArrowUpRight } from './Icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,11 +23,18 @@ export default function Hero() {
     });
     // kinetic typography: the three headline rows part in opposite directions while the hero leaves, and the plate takes over
     const mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
       const st = { trigger: root.current!, start: 'top top', end: 'bottom 20%', scrub: true };
       gsap.to('[data-hero-row="0"]', { xPercent: -16, ease: 'none', scrollTrigger: st });
       gsap.to('[data-hero-row="1"]', { xPercent: 55, ease: 'none', scrollTrigger: st });
       gsap.to('[data-hero-row="2"]', { xPercent: -14, ease: 'none', scrollTrigger: st });
+    });
+    // phones: a gentler, calmer parting so nothing flies off screen
+    mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
+      const st = { trigger: root.current!, start: 'top top', end: 'bottom 30%', scrub: 0.6 };
+      gsap.to('[data-hero-row="0"]', { xPercent: -5, ease: 'none', scrollTrigger: st });
+      gsap.to('[data-hero-row="1"]', { xPercent: 8, ease: 'none', scrollTrigger: st });
+      gsap.to('[data-hero-row="2"]', { xPercent: -4, ease: 'none', scrollTrigger: st });
     });
     const failsafe = setTimeout(() => { motion.intro.v = 1; motion.update(); }, 4500);
     return () => { ctx.revert(); mm.revert(); clearTimeout(failsafe); };
@@ -52,7 +60,7 @@ export default function Hero() {
           <p className="label-mono max-w-[380px] leading-[1.7]">For startups, scale-ups and established teams building or modernising software.</p>
           <div className="flex flex-wrap gap-3">
             <CtaButton onClick={open}>Start a project</CtaButton>
-            <Link href="/services" className="btn-line">See services ↗</Link>
+            <Link href="/services" className="btn-line gap-1">See services <ArrowUpRight className="ml-2 h-4 w-4" /></Link>
           </div>
         </div>
       </div>

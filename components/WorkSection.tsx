@@ -1,5 +1,6 @@
 'use client';
 import { Children, useState } from 'react';
+import { ArrowDown, ArrowUp } from './Icon';
 
 const LIMIT = 5;
 
@@ -19,7 +20,7 @@ export default function WorkSection({ id, index, label, children }: { id: string
       <div>{shown}</div>
       {hidden > 0 && (
         <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="btn-line mt-8 gap-6">
-          {open ? 'Show less' : `See more (${hidden})`}<span aria-hidden>{open ? '↑' : '↓'}</span>
+          {open ? 'Show less' : `See more (${hidden})`}{open ? <ArrowUp /> : <ArrowDown />}
         </button>
       )}
     </section>

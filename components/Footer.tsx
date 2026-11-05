@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { NAV, EMAIL } from '@/lib/data';
 import FooterWordmark from './FooterWordmark';
+import { ArrowUp } from './Icon';
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
             <p className="mt-5 text-[15px] leading-[1.55] text-slate">A software and creative technology studio: engineering, design, data and security in one team.</p>
           </div>
           <nav data-reveal className="flex flex-col gap-1.5" aria-label="Footer">{NAV.map((n) => <Link key={n.href} href={n.href} className="py-1.5 text-base">{n.label}</Link>)}</nav>
-          <a href="#top" className="self-end border border-silver px-[22px] py-3.5 text-sm font-medium hover:border-graphite">Back to top ↑</a>
+          <a href="#top" className="inline-flex items-center self-end border border-silver px-[22px] py-3.5 text-sm font-medium hover:border-graphite">Back to top <ArrowUp className="ml-2 h-4 w-4" /></a>
         </div>
         <FooterWordmark>Agency Name</FooterWordmark>
         <div className="mt-[clamp(24px,3vw,40px)] flex flex-wrap justify-between gap-2 border-t border-silver pt-5 text-[13px] text-slate"><span>Copyright © 2026 Agency Name.</span><span>{EMAIL} — placeholder</span></div>

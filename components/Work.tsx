@@ -4,6 +4,7 @@ import MaskHeading from './MaskHeading';
 import WorkRow from './WorkRow';
 import WorkSection from './WorkSection';
 import { PROJECTS, WORK_CATEGORIES } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 export default function Work() {
   // each project is listed once, under its primary (first) category
@@ -29,7 +30,7 @@ export default function Work() {
       </div>
       <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
         <p className="max-w-[480px] text-xl leading-snug">Have a similar challenge? Let’s bring the right people together for it.</p>
-        <Link href="/contact" className="btn-dark gap-6">Discuss your project <span aria-hidden>↗</span></Link>
+        <Link href="/contact" className="btn-dark gap-6">Discuss your project <ArrowUpRight className="h-5 w-5" /></Link>
       </div>
     </section>
   );

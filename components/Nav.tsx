@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { NAV, EMAIL } from '@/lib/data';
 import CtaButton from './CtaButton';
 import { useProjectModal } from './ProjectModal';
+import { ArrowUpRight } from './Icon';
 
 export default function Nav() {
   const { open: openProject } = useProjectModal();
@@ -91,10 +92,10 @@ export default function Nav() {
           {NAV.map((n, i) => (
             <Link key={n.href} href={n.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}
               style={{ transitionDelay: open ? `${180 + i * 70}ms` : '0ms' }}
-              className={`group flex items-baseline gap-4 border-b border-stone py-[clamp(14px,3.2vh,26px)] transition-all duration-700 ease-out ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
+              className={`group flex items-baseline gap-4 border-b border-stone py-[clamp(12px,2.4vh,22px)] transition-all duration-700 ease-out ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
               <span className="label-mono w-6 text-[11px]">0{i + 1}</span>
-              <span className={`flex-1 font-display text-[clamp(34px,10.5vw,64px)] font-semibold uppercase leading-none tracking-[-.005em] transition-transform duration-300 group-hover:translate-x-2 ${active === i ? 'text-steel' : ''}`}>{n.label}</span>
-              <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+              <span className={`flex-1 font-display text-[clamp(24px,7vw,48px)] font-semibold uppercase leading-none tracking-[-.005em] transition-transform duration-300 group-hover:translate-x-2 ${active === i ? 'text-steel' : ''}`}>{n.label}</span>
+              <span className="text-xl text-steel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"><ArrowUpRight className="h-5 w-5" /></span>
             </Link>
           ))}
         </nav>

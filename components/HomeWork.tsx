@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
 import { PROJECTS } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,12 +84,12 @@ export default function HomeWork() {
   return (
     <section ref={root} data-screen-label="Featured work" className="relative pb-[clamp(60px,8vw,140px)]">
       {/* title card: the hero plate is full-bleed behind this, so the type inverts over it (mix-blend-difference) */}
-      <div className="relative z-30 mx-auto flex min-h-[100svh] max-w-[1760px] flex-col justify-end px-[clamp(20px,3vw,48px)] pb-[clamp(40px,6vw,100px)]">
-        <div className="text-diff mix-blend-difference">
+      <div className="relative z-30 mx-auto flex min-h-[46svh] max-w-[1760px] flex-col justify-end px-[clamp(20px,3vw,48px)] pb-[clamp(32px,6vw,100px)] pt-24 min-[900px]:min-h-[100svh]">
+        <div className="text-diff mix-blend-difference max-[899px]:text-graphite max-[899px]:mix-blend-normal">
           <SectionLabel>Selected work</SectionLabel>
           <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">Recent projects</MaskHeading>
         </div>
-        <Link href="/work" className="btn-dark mt-8 gap-6 self-start">See all work <span aria-hidden>↗</span></Link>
+        <Link href="/work" className="btn-dark mt-8 gap-6 self-start">See all work <ArrowUpRight className="h-5 w-5" /></Link>
       </div>
 
       <div className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)]">
@@ -107,8 +108,8 @@ export default function HomeWork() {
               >
                 {/* copy */}
                 <div className="relative flex flex-col justify-between gap-10 overflow-hidden p-[clamp(20px,2.6vw,44px)]">
-                  <div className="flex items-center justify-between">
-                    <span data-fade className="label-mono">{String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}</span>
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                    <span data-fade className="label-mono whitespace-nowrap">{String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}</span>
                     <span data-fade className="label-mono">{p.cat}</span>
                   </div>
 
@@ -126,15 +127,15 @@ export default function HomeWork() {
                     </ul>
                     <span data-fade className="mt-8 inline-flex items-center gap-4 text-[15px] font-medium">
                       View project
-                      <span aria-hidden className="grid h-10 w-10 place-items-center rounded-full border border-graphite transition-colors duration-300 group-hover:bg-graphite group-hover:text-white">↗</span>
+                      <span aria-hidden className="grid h-10 w-10 place-items-center rounded-full border border-graphite transition-colors duration-300 group-hover:bg-graphite group-hover:text-white"><ArrowUpRight className="h-5 w-5" /></span>
                     </span>
                   </div>
                 </div>
 
                 {/* image */}
-                <div data-media className="relative aspect-[4/3] overflow-hidden bg-soft min-[900px]:aspect-auto">
+                <div data-media className="relative order-first aspect-[4/3] min-[900px]:order-none overflow-hidden bg-soft min-[900px]:aspect-auto">
                   <div data-img className="absolute inset-0 will-change-transform">
-                    <Image src={p.image} alt={p.imageAlt} fill sizes="(min-width: 900px) 58vw, 94vw" priority={i === 0} className="object-cover object-top" />
+                    <Image src={p.image} alt={p.imageAlt} fill sizes="(min-width: 900px) 58vw, 94vw" priority={i === 0} quality={90} className="object-cover object-top" />
                   </div>
                 </div>
 

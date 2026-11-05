@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
 import { PRINCIPLES, PROJECTS, TEAM } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 export default function Studio() {
   return (
@@ -22,7 +23,7 @@ export default function Studio() {
           {TEAM.map((person, index) => (
             <article id={person.id} key={person.id} className="min-w-0 scroll-mt-28">
               <div className="relative aspect-[4/5] overflow-hidden border border-silver bg-soft">
-                {person.image ? <Image src={person.image} alt={`Portrait of ${person.name}`} fill sizes="(min-width: 1200px) 31vw, (min-width: 700px) 46vw, 94vw" className="object-cover" /> : <div aria-hidden className="flex h-full items-end bg-graphite p-8 font-display text-[clamp(90px,12vw,180px)] font-semibold leading-none tracking-tightest text-white">{person.name.split(' ').map((name) => name[0]).join('')}</div>}
+                {person.image ? <Image src={person.image} alt={`Portrait of ${person.name}`} fill sizes="(min-width: 1200px) 31vw, (min-width: 700px) 46vw, 94vw" className="object-cover object-[50%_18%]" /> : <div aria-hidden className="flex h-full items-end bg-graphite p-8 font-display text-[clamp(90px,12vw,180px)] font-semibold leading-none tracking-tightest text-white">{person.name.split(' ').map((name) => name[0]).join('')}</div>}
               </div>
               <p className="label-mono mt-5">0{index + 1} / {person.role}</p>
               <h3 className="mt-3 font-display text-[clamp(28px,2.8vw,44px)] font-semibold leading-tight tracking-tightest">{person.name}</h3>
@@ -37,16 +38,16 @@ export default function Studio() {
                 </ul>
               </div>
               <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm">
-                <a href={person.portfolio} target="_blank" rel="noopener noreferrer" aria-label={`${person.name}’s portfolio`} className="underline underline-offset-4">Portfolio ↗</a>
-                <a href={person.github} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on GitHub`} className="underline underline-offset-4">GitHub ↗</a>
-                <a href={person.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on LinkedIn`} className="underline underline-offset-4">LinkedIn ↗</a>
+                <a href={person.portfolio} target="_blank" rel="noopener noreferrer" aria-label={`${person.name}’s portfolio`} className="underline underline-offset-4">Portfolio <ArrowUpRight className="inline h-3.5 w-3.5" /></a>
+                <a href={person.github} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on GitHub`} className="underline underline-offset-4">GitHub <ArrowUpRight className="inline h-3.5 w-3.5" /></a>
+                <a href={person.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on LinkedIn`} className="underline underline-offset-4">LinkedIn <ArrowUpRight className="inline h-3.5 w-3.5" /></a>
               </div>
             </article>
           ))}
         </div>
         <div className="mt-16 flex flex-wrap items-center justify-between gap-6 border-t border-graphite pt-8">
           <p className="max-w-[540px] text-xl leading-snug">From the first product conversation to the final build, work with people who understand the whole picture.</p>
-          <Link href="/contact" className="btn-dark gap-6">Work with us <span aria-hidden>↗</span></Link>
+          <Link href="/contact" className="btn-dark gap-6">Work with us <ArrowUpRight className="h-5 w-5" /></Link>
         </div>
       </div>
     </section>

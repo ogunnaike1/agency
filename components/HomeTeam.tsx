@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionLabel from './SectionLabel';
 import MaskHeading from './MaskHeading';
 import { TEAM } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,10 +28,12 @@ export default function HomeTeam() {
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       // the dark chapter opens like a card growing to full bleed, holds, then closes again into a rule that the index draws from
+      // on phones the card must still cover the closing button, so its bottom edge only closes a little (below the CTA)
+      const phone = matchMedia('(max-width: 899px)').matches;
       gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%', end: 'bottom 15%', scrub: true } })
         .fromTo('[data-tbg]', { clipPath: 'inset(9% 5% 0% 5% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', duration: 0.3 })
         .to('[data-tbg]', { duration: 0.45 })
-        .to('[data-tbg]', { clipPath: 'inset(0% 5% 9% 5% round 28px)', ease: 'none', duration: 0.25 });
+        .to('[data-tbg]', { clipPath: phone ? 'inset(0% 3% 2% 3% round 24px)' : 'inset(0% 5% 9% 5% round 28px)', ease: 'none', duration: 0.25 });
       // ticker: two rows travelling in opposite directions
       gsap.fromTo('[data-tick="a"]', { xPercent: 0 }, { xPercent: -28, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
       gsap.fromTo('[data-tick="b"]', { xPercent: -28 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -41,8 +44,13 @@ export default function HomeTeam() {
         const rest = card.querySelectorAll<HTMLElement>('[data-pfade]');
         const trig = { trigger: card, start: 'top 88%', end: 'top 30%', scrub: true };
 
-        gsap.fromTo(media, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: trig });
-        gsap.fromTo(img, { scale: 1.35, filter: 'grayscale(1)' }, { scale: 1, filter: 'grayscale(0)', ease: 'none', scrollTrigger: trig });
+        // phones: portraits are never masked or zoomed mid-scroll (that cropped faces); they simply fade in whole
+        if (matchMedia('(max-width: 899px)').matches) {
+          gsap.fromTo(media, { opacity: 0, y: 24 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: card, start: 'top 92%', end: 'top 62%', scrub: true } });
+        } else {
+          gsap.fromTo(media, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: trig });
+          gsap.fromTo(img, { scale: 1.35, filter: 'grayscale(1)' }, { scale: 1, filter: 'grayscale(0)', ease: 'none', scrollTrigger: trig });
+        }
         gsap.fromTo(rest, { y: 28, opacity: 0 }, {
           y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08,
           scrollTrigger: { trigger: card, start: 'top 62%', toggleActions: 'play none none reverse' },
@@ -63,7 +71,7 @@ export default function HomeTeam() {
   }, []);
 
   return (
-    <section ref={root} data-screen-label="Team" className="relative overflow-hidden py-[clamp(60px,8vw,140px)] text-white">
+    <section ref={root} data-screen-label="Team" className="relative overflow-hidden pt-[clamp(60px,8vw,140px)] pb-[clamp(100px,8vw,140px)] text-white">
       {/* the dark chapter grows out of the page like a card opening to full bleed */}
       <div data-tbg aria-hidden className="absolute inset-0 -z-0 bg-graphite" style={{ clipPath: 'inset(9% 5% 0% 5% round 28px)' }} />
       {/* outlined ticker */}
@@ -84,7 +92,7 @@ export default function HomeTeam() {
                 <div data-pmedia className="relative aspect-[4/5] overflow-hidden bg-[#1d2630]">
                   <div data-pimg className="absolute inset-0 will-change-transform">
                     {person.image
-                      ? <Image src={person.image} alt={`Portrait of ${person.name}`} fill sizes="(min-width: 700px) 31vw, 94vw" className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.04]" />
+                      ? <Image src={person.image} alt={`Portrait of ${person.name}`} fill sizes="(min-width: 700px) 31vw, 94vw" className="object-cover object-[50%_18%] transition-transform duration-700 motion-safe:group-hover:scale-[1.04]" />
                       : <div aria-hidden className="flex h-full items-end bg-gradient-to-br from-[#2a3745] to-[#141b22] p-6 font-display text-[clamp(90px,12vw,200px)] font-semibold leading-none tracking-tightest text-white/90">{person.name.split(' ').map((n) => n[0]).join('')}</div>}
                   </div>
                 </div>
@@ -93,7 +101,7 @@ export default function HomeTeam() {
                     <h3 data-pfade className="m-0 font-display text-[clamp(24px,2.4vw,40px)] font-semibold uppercase leading-none tracking-tightest">{person.name}</h3>
                     <p data-pfade className="label-mono mt-2 !text-steel">{person.role}</p>
                   </div>
-                  <span data-pfade aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/40 transition-colors duration-300 group-hover:bg-white group-hover:text-graphite">↗</span>
+                  <span data-pfade aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/40 transition-colors duration-300 group-hover:bg-white group-hover:text-graphite"><ArrowUpRight className="h-5 w-5" /></span>
                 </div>
                 <p data-pfade className="mt-4 max-w-[420px] text-[15px] leading-relaxed text-white/60 line-clamp-3">{person.bio}</p>
                 <ul data-pfade className="mt-4 flex flex-wrap gap-2">
@@ -104,7 +112,7 @@ export default function HomeTeam() {
           ))}
         </div>
 
-        <Link href="/studio" className="mt-12 inline-flex items-center gap-6 border border-white px-7 py-4 text-[15px] font-medium transition-colors hover:bg-white hover:text-graphite">Meet the studio <span aria-hidden>↗</span></Link>
+        <Link href="/studio" className="mt-12 inline-flex items-center gap-6 border border-white bg-white px-7 py-4 text-[15px] font-medium text-graphite transition-colors hover:border-steel hover:bg-steel min-[900px]:bg-transparent min-[900px]:text-white min-[900px]:hover:border-white min-[900px]:hover:bg-white min-[900px]:hover:text-graphite">Meet the studio <ArrowUpRight className="h-5 w-5" /></Link>
       </div>
     </section>
   );

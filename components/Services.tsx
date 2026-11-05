@@ -3,7 +3,6 @@ import MaskHeading from './MaskHeading';
 import MobileArt from './MobileArt';
 import { PILLARS, MATRIX } from '@/lib/data';
 
-const dot = ['bg-dusty border-dusty', 'bg-white border-graphite', 'bg-steel border-graphite'];
 
 export default function Services() {
   return (
@@ -31,20 +30,26 @@ export default function Services() {
           </article>
         ))}
       </div>
-      <div data-reveal className="mt-[clamp(24px,3vw,48px)] border-t border-graphite pt-8 min-[900px]:max-w-[54%]">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h3 className="text-[clamp(26px,3vw,44px)] font-medium leading-none tracking-[-.03em]">How the pillars combine</h3>
-          <span className="label-mono">● Lead &nbsp; ○ Support — indicative</span>
+      <div data-reveal className="mt-[clamp(24px,3vw,48px)] border-t border-graphite pt-8">
+        <h3 className="text-[clamp(26px,3vw,44px)] font-medium leading-none tracking-[-.03em]">Which pillars does your project need?</h3>
+        <p className="mt-4 max-w-[560px] text-[15px] leading-relaxed text-slate">Pick the goal closest to yours. Each card shows which teams lead the work and which support it. Most projects use more than one pillar.</p>
+        <div className="mt-8 grid gap-4 min-[700px]:grid-cols-2">
+          {MATRIX.map((m) => {
+            const lead = m.lv.map((v, i) => (v === 2 ? PILLARS[i].title : null)).filter(Boolean);
+            const support = m.lv.map((v, i) => (v === 1 ? PILLARS[i].title : null)).filter(Boolean);
+            return (
+              <div key={m.name} className="border border-silver p-6">
+                <h4 className="m-0 text-[clamp(20px,1.8vw,26px)] font-medium leading-tight">{m.name}</h4>
+                <p className="label-mono mt-5">Leads the work</p>
+                <ul className="mt-2 flex flex-wrap gap-2">{lead.map((t) => <li key={t} className="bg-graphite px-3 py-1.5 text-[13px] text-white">{t}</li>)}</ul>
+                {support.length > 0 && (<>
+                  <p className="label-mono mt-5">Supports</p>
+                  <ul className="mt-2 flex flex-wrap gap-2">{support.map((t) => <li key={t} className="border border-silver px-3 py-1.5 text-[13px] text-slate">{t}</li>)}</ul>
+                </>)}
+              </div>
+            );
+          })}
         </div>
-        <div className="mt-7 overflow-x-auto"><div className="min-w-[560px]">
-          <div className="label-mono grid grid-cols-[2fr_repeat(4,1fr)] py-3 leading-snug"><span /><span>Eng.</span><span>Exp.</span><span>Data</span><span>Sec.</span></div>
-          {MATRIX.map((m) => (
-            <div key={m.name} className="grid grid-cols-[2fr_repeat(4,1fr)] items-center border-t border-silver py-5">
-              <span className="text-[clamp(17px,1.6vw,22px)] font-medium leading-tight">{m.name}</span>
-              {m.lv.map((v, i) => <span key={i} className={`block h-4 w-4 rounded-full border-[1.5px] ${dot[v]}`} />)}
-            </div>
-          ))}
-        </div></div>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PROJECTS, TEAM, type Project } from '@/lib/data';
+import { ArrowUpRight } from './Icon';
 
 export default function WorkRow({ project }: { project: Project }) {
   return (
@@ -25,7 +26,7 @@ export default function WorkRow({ project }: { project: Project }) {
             );
           })}
         </div>
-        <a href={project.href} target="_blank" rel="noopener noreferrer" className="btn-line mt-6 gap-6">{project.linkLabel}<span aria-hidden>↗</span></a>
+        <a href={project.href} target="_blank" rel="noopener noreferrer" className="btn-line mt-6 gap-6">{project.linkLabel}<ArrowUpRight className="h-5 w-5" /></a>
       </div>
       <figure className="min-w-0 max-[899px]:row-start-1">
         <a href={project.href} target="_blank" rel="noopener noreferrer" className="group relative block aspect-[4/3] overflow-hidden border border-silver bg-soft" aria-label={`${project.linkLabel}: ${project.title}`}>
