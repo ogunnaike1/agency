@@ -12,7 +12,6 @@ export default function Services() {
         <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">Four pillars, one build.</MaskHeading>
         <p data-reveal className="mt-7 max-w-[520px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-slate">Most products need more than code. These four areas are organised so they can be bought together, which is how they work best, or separately.</p>
       </div>
-      <MobileArt i={1} className="mt-10" />
       <div className="mt-[clamp(40px,5vw,80px)]">
         {PILLARS.map((p, pi) => (
           <article key={p.title} data-pillar className="min-h-[62vh] max-[899px]:min-h-0 border-t border-graphite py-[clamp(40px,5vw,80px)] min-[900px]:max-w-[54%]">
