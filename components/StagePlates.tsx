@@ -41,7 +41,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
       if (!c) { const b = el.getBoundingClientRect(); c = { x: b.left, y: b.top + sy, w: b.width, h: b.height }; cache.set(el, c); }
       return { x: c.x, y: c.y - sy, w: c.w, h: c.h };
     };
-    let media: HTMLElement | null = null, lastMedia: HTMLElement | null = null, persons: HTMLElement[] = [], foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
+    let media: HTMLElement | null = null, foot: HTMLElement | null = null, key = '', sized = '', wasMob: boolean | null = null;
 
     const update = () => {
       const W = innerWidth, H = innerHeight, sy = scrollY, mob = W < 900;
@@ -50,8 +50,6 @@ export default function StagePlates({ page }: { page: StagePage }) {
       const k = `${sy.toFixed(1)}|${W}|${H}|${iv.toFixed(3)}`;
       if (k === key) return; key = k;
       media = media && media.isConnected ? media : document.querySelector<HTMLElement>('[data-card] [data-media]');
-      if (!lastMedia || !lastMedia.isConnected) { const all = document.querySelectorAll<HTMLElement>('[data-card] [data-media]'); lastMedia = all.length ? all[all.length - 1] : null; }
-      if (!persons.length || !persons[0].isConnected) persons = Array.from(document.querySelectorAll<HTMLElement>('[data-person] [data-pmedia]'));
       foot = foot && foot.isConnected ? foot : document.querySelector<HTMLElement>('footer');
       const rd = (t: number) => (reduce ? Math.round(t) : t);
 
@@ -72,7 +70,7 @@ export default function StagePlates({ page }: { page: StagePage }) {
           const sr = rectOf(s, mob, sy);
           const start: R = { x: sr.x + sr.w * 0.3, y: sr.y + H * 0.22, w: sr.w * 0.4, h: sr.h * 0.4 };
           const e = ease(tf);
-          return { r: lerp(start, sr, e), o: e, d: DIAG[i] * e };
+          return { r: lerp(start, sr, e), o: e * (1 - cl((e - 0.8) / 0.2)), d: DIAG[i] * e }; // dissolve into the real logo underneath
         }
         // phones: no full-bleed project plate and no portrait hand-off. Blown up to 100vw the project screenshots were blurry and
         // the title overlapped their baked-in text; the cards and portraits sit in the flow instead, so plates just drift away.
@@ -86,22 +84,6 @@ export default function StagePlates({ page }: { page: StagePage }) {
             r = lerp(h0, full, ease(t1));
             projO[0] = ease(cl((t1 - 0.4) / 0.45));
           }
-        } else if (!mob && persons[i - 1] && lastMedia && (() => {
-          // work → team: the last project frame splits into three strips that drop into the three portraits
-          const pr = rectOf(persons[i - 1], mob, sy);
-          const a = rd(cl((H * 0.88 - pr.y) / (H * 0.88 - H * 0.32)));
-          if (a <= 0) return false;
-          const lm = rectOf(lastMedia, mob, sy);
-          const sw = lm.w / 3;
-          const start: R = mob
-            ? { x: pr.x + pr.w * 0.1, y: pr.y + 70, w: pr.w * 0.8, h: pr.h * 0.8 }
-            : { x: lm.x + (i - 1) * sw, y: Math.max(lm.y, topEnd), w: sw, h: lm.h };
-          r = lerp(start, pr, ease(a));
-          o = ease(cl(a / 0.2)) * (a > 0.9 ? 1 - (a - 0.9) / 0.1 : 1);
-          projO[i] = 1;
-          return true;
-        })()) {
-          // handled above
         } else { // layered parallax: each plate leaves at its own speed
           r = { ...h0, y: h0.y - ease(t1) * H * (0.45 + 0.3 * i) };
           o = 1 - cl(t1 / 0.7);

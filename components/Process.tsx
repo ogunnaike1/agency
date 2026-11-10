@@ -25,7 +25,9 @@ export default function Process() {
   return (
     <section id="process" data-screen-label="Process" className="relative mx-auto max-w-[1760px] px-[clamp(20px,3vw,48px)] py-[clamp(60px,8vw,140px)]">
       <SectionLabel>Process</SectionLabel>
-      <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">How we work</MaskHeading>
+      <div className="min-[900px]:max-w-[54%]">
+        <MaskHeading className="h-display text-[clamp(44px,8.6vw,150px)]">How we work</MaskHeading>
+      </div>
       <MobileArt i={3} className="mt-10" />
       <div ref={line} className="relative mt-[clamp(40px,5vw,80px)] pl-[clamp(28px,4vw,56px)] min-[900px]:max-w-[54%]">
         <div className="absolute bottom-0 left-0 top-0 w-px bg-silver" />

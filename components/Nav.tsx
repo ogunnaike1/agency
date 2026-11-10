@@ -65,9 +65,9 @@ export default function Nav() {
   return (
     <header ref={root} className="pointer-events-none fixed inset-x-0 top-0 z-50">
       <div className={`pointer-events-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-b px-[clamp(16px,2.4vw,40px)] transition-[background-color,border-color,padding,box-shadow,backdrop-filter] duration-500 ease-out ${open ? 'border-transparent bg-white/0 py-[10px]' : scrolled ? 'border-stone bg-white/85 py-[10px] shadow-[0_12px_30px_-24px_rgba(34,43,51,.35)] backdrop-blur-[14px] backdrop-saturate-150' : 'border-transparent bg-white/0 py-[clamp(12px,1.6vw,22px)]'}`}>
-        <Link href="/" aria-label="Agency Name home" data-nav-logo className="pointer-events-auto flex items-center gap-3 justify-self-start">
-          <Image src="/logo-mark.png" alt="" width={42} height={31} priority />
-          <span className="text-[15px] uppercase tracking-[.22em]">Agency Name</span>
+        <Link href="/" aria-label="Reforge home" data-nav-logo className="pointer-events-auto flex items-center gap-3 justify-self-start">
+          <Image src="/logo-mark.svg" alt="" width={34} height={34} priority />
+          <span className="text-[15px] uppercase tracking-[.22em]">Reforge</span>
         </Link>
         <nav data-nav-pill className="pointer-events-auto relative hidden gap-0.5 rounded-full border border-stone bg-white/70 p-[5px] shadow-[0_10px_30px_-18px_rgba(34,43,51,.18),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-[14px] backdrop-saturate-150 min-[900px]:flex" aria-label="Primary">
           {/* spotlight: one pill that glides to the active link */}

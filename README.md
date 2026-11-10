@@ -1,4 +1,4 @@
-# Agency site — Next.js + Tailwind
+# Reforge site — Next.js + Tailwind
 
 Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS 3 · GSAP 3.13 (ScrollTrigger + SplitText, both free).
 

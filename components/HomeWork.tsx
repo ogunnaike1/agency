@@ -135,7 +135,7 @@ export default function HomeWork() {
                 {/* image */}
                 <div data-media className="relative order-first aspect-[4/3] min-[900px]:order-none overflow-hidden bg-soft min-[900px]:aspect-auto">
                   <div data-img className="absolute inset-0 will-change-transform">
-                    <Image src={p.image} alt={p.imageAlt} fill sizes="(min-width: 900px) 58vw, 94vw" priority={i === 0} quality={90} className="object-cover object-top" />
+                    <Image src={p.image} alt={p.imageAlt} fill sizes="(min-width: 900px) 58vw, 94vw" priority={i === 0} quality={90} className="object-contain" />
                   </div>
                 </div>
 

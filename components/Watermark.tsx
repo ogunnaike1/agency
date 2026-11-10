@@ -39,7 +39,7 @@ export default function Watermark() {
       </svg>
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img ref={img} src="/logo-mark.png" alt="" className="absolute left-1/2 top-1/2 h-auto w-[min(112vw,150vh)] max-w-none opacity-[.055] will-change-transform" style={{ filter: 'url(#liquid)', transform: 'translate(-46%,-48%)' }} />
+        <img ref={img} src="/logo-mark.svg" alt="" className="absolute left-1/2 top-1/2 h-auto w-[min(80vw,100vh)] max-w-none opacity-[.055] will-change-transform" style={{ filter: 'url(#liquid)', transform: 'translate(-46%,-48%)' }} />
       </div>
     </>
   );

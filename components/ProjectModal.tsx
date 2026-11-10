@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import Image from 'next/image';
 import ProjectForm from './ProjectForm';
 
 const Ctx = createContext<{ open: () => void }>({ open: () => {} });
@@ -57,7 +58,7 @@ export default function ProjectModalProvider({ children }: { children: React.Rea
           <div ref={panel} data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="pm-title" className="relative max-h-[92svh] w-full max-w-[720px] overflow-y-auto overscroll-contain border border-silver bg-white p-[clamp(22px,3vw,44px)] shadow-[0_40px_80px_-30px_rgba(34,43,51,.45)] max-[699px]:rounded-t-[20px] min-[700px]:m-6">
             <div className="flex items-start justify-between gap-6">
               <div>
-                <p className="label-mono">Start a project</p>
+                <div className="flex items-center gap-3"><Image src="/logo-mark.svg" alt="Reforge" width={36} height={36} /><p className="label-mono">Reforge · Start a project</p></div>
                 <h2 id="pm-title" className="h-display mt-3 text-[clamp(30px,4vw,56px)]">Tell us what you are building.</h2>
               </div>
               <button type="button" onClick={close} aria-label="Close" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-graphite text-xl leading-none transition-colors hover:bg-graphite hover:text-white">×</button>

@@ -391,4 +391,4 @@ export const AGREEMENTS = ['One shared backlog', 'Working demos at the end of it
 export const PRINCIPLES = ['Design and engineering share one backlog.', 'Security is a requirement, not a phase.', 'AI should earn its place.'];
 export const AREAS = ['Product engineering', 'Experience and creative technology', 'Data, AI and automation', 'Security and reliability'];
 export const TIMES = ['Under 1 month', '1–3 months', '3–6 months', '6+ months', 'Not sure yet'];
-export const EMAIL = 'hello@agency.example'; // placeholder until real address supplied
+export const EMAIL = 'hello@reforge.example'; // placeholder until real address supplied

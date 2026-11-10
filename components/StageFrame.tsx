@@ -44,7 +44,10 @@ export default function StageFrame({ page }: { page: StagePage }) {
       });
       if (bar.current) bar.current.style.transform = `scaleY(${p})`;
       if (frame.current) {
-        frame.current.style.opacity = String(motion.intro.v);
+        // the white footer slides over the fixed frame and used to cut it in half; fade it out as the footer arrives instead
+        const foot = document.querySelector('footer');
+        const fade = foot ? cl((innerHeight - foot.getBoundingClientRect().top) / (innerHeight * 0.3)) : 0;
+        frame.current.style.opacity = String(motion.intro.v * (1 - fade));
         frame.current.style.transform = `translate3d(0,calc(-50% + ${(0.5 - p) * 40}px),0)`;
       }
     };
@@ -65,7 +68,7 @@ export default function StageFrame({ page }: { page: StagePage }) {
           {STAGE_IMAGES.map((src, i) => (
             <div key={src} ref={(el) => { layers.current[i] = el; }} className="absolute inset-0 bg-soft" style={{ clipPath: i === 0 ? 'none' : 'inset(100% 0 0 0)' }}>
               <div ref={(el) => { imgs.current[i] = el; }} className="absolute inset-0 will-change-transform">
-                <Image src={src} alt="" fill sizes="42vw" priority={i < 2} className="object-contain" />
+                <Image src={src} alt="" fill sizes="42vw" priority={i < 2} loading="eager" className="object-contain" />
               </div>
             </div>
           ))}

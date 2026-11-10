@@ -5,9 +5,9 @@ import './globals.css';
 const mono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'Agency Name — Software & creative technology studio',
+  title: 'Reforge — Software & creative technology studio',
   description: 'One team for the product, the interface, the data behind it and the security around it.',
-  icons: { icon: '/logo-mark.png' },
+  icons: { icon: '/logo-mark.svg' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

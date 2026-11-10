@@ -30,7 +30,7 @@ export default function WorkRow({ project }: { project: Project }) {
       </div>
       <figure className="min-w-0 max-[899px]:row-start-1">
         <a href={project.href} target="_blank" rel="noopener noreferrer" className="group relative block aspect-[4/3] overflow-hidden border border-silver bg-soft" aria-label={`${project.linkLabel}: ${project.title}`}>
-          <Image src={project.image} alt={project.imageAlt} fill sizes="(min-width: 1760px) 830px, (min-width: 900px) 51vw, 94vw" className="object-cover object-top transition-transform duration-500 motion-safe:group-hover:scale-[1.025]" />
+          <Image src={project.image} alt={project.imageAlt} fill sizes="(min-width: 1760px) 830px, (min-width: 900px) 51vw, 94vw" className="object-contain transition-transform duration-500 motion-safe:group-hover:scale-[1.025]" />
         </a>
         <figcaption className="label-mono mt-3 text-[10px]">{project.status}</figcaption>
       </figure>
